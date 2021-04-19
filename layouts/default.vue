@@ -13,7 +13,7 @@
 .wrapper {
   min-height: 100%;
   display: grid;
-  grid-template-rows: 80px 1fr 100px;
+  grid-template-rows: 150px 1fr 100px;
   grid-template-columns: 100%;
 
   header {
@@ -21,7 +21,7 @@
     border-bottom: 1px solid $grey;
   }
   main {
-    background: goldenrod;
+    min-height: calc(100vh - 180px);
   }
   footer {
     background: deeppink;
