@@ -1,7 +1,6 @@
 <template>
-  <transition name="slide">
-    <div class="sidebar" :class="openSidenav ? 'show' : 'hide'">
-      <span></span>
+  <transition>
+    <aside v-if="openSidenav">
       <nav>
         <ul>
           <li>
@@ -15,7 +14,7 @@
           </li>
         </ul>
       </nav>
-    </div>
+    </aside>
   </transition>
 </template>
 
@@ -31,31 +30,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.sidebar {
+aside {
   position: fixed;
   right: 0;
   top: 0;
+  width: calc(100vw - 50%);
   height: 100vh;
+  padding-top: 30vw;
   z-index: 1;
-  width: calc(100vw - 70%);
   background-color: #fff;
+
+  nav {
+    font-size: 1.8rem;
+  }
 }
 
-.hide {
-  opacity: 0;
-}
-.show {
-  opacity: 1;
-}
-
-.slide-enter-active,
-.slide-leave-active {
+.v-enter-active,
+.v-leave-active {
   transition: transform 0.2s ease;
 }
 
-.slide-enter,
-.slide-leave-to {
-  transform: translateX(-100%);
-  transition: all 150ms ease-in 0s;
+.v-enter,
+.v-leave-to {
+  transform: translateX(100%);
+  transition: all 150ms ease-out 0s;
 }
 </style>

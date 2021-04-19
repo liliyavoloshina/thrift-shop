@@ -18,6 +18,10 @@ body {
 	height: 100%;
 }
 
+body::-webkit-scrollbar {
+	display: none;
+}
+
 *,
 *::before,
 *::after {
@@ -35,29 +39,17 @@ ul {
 }
 
 button {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 button:focus {
-  outline: 0;
+	outline: 0;
 }
 
-// main styles
-
-.wrapper {
-	min-height: 100%;
-	display: grid;
-	grid-template-rows: 80px 1fr 100px;
-	grid-template-columns: 100%;
-
-	header {
-		background: $white;
-		border-bottom: 1px solid $grey;
-	}
-	main {
-		background: goldenrod;
-	}
-	footer {
-		background: deeppink;
+nav {
+	li {
+		a {
+			color: $black;
+		}
 	}
 }
