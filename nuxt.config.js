@@ -42,7 +42,13 @@ export default {
 	},
 
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios
-	axios: {},
+	axios: {
+		headers: {
+			common: {
+				'Content-Type': 'multipart/form-data'
+			}
+		}
+	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {}

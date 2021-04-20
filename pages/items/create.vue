@@ -40,16 +40,21 @@
           <label for="file-upload" class="custom-file-upload">
             Load image
           </label>
-          <input @change="fileUpload" ref="file" id="file-upload" type="file" />
+          <input @change="fileUpload()" ref="file" id="file-upload" type="file" />
         </div>
         <button type="submit">Submit</button>
       </div>
-      <div class="note">{{$data}}</div>
+      <div class="note">
+        <img src="https://firebasestorage.googleapis.com/v0/b/thrift-shop-2b434.appspot.com/o/items%2Fitem_2" alt="">
+        <!-- <img src="https://firebasestorage.googleapis.com/v0/b/thrift-shop-2b434.appspot.com/o/items%2Fitem_2" alt=""> -->
+        <pre>{{image}}</pre>
+      </div>
     </form>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -57,32 +62,32 @@ export default {
       description: '',
       category: '',
       gender: 'unisex',
-      image: ''
+      image: null
     }
   },
   methods: {
     async submitForm() {
-      let formData = new FormData()
-      formData.append('file', this.image)
-
-      await this.$axios.post('https://thrift-shop-2b434-default-rtdb.firebaseio.com/items.json', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+      // let formData = new FormData()
+      // formData.append('file', this.image)
+      let formData = this.image
+      console.log(this.image)
+      axios({
+        method: 'post',
+        url: `https://firebasestorage.googleapis.com/v0/b/thrift-shop-2b434.appspot.com/o/items%2Fitem_2?alt=media`,
+        data: formData,
+        // headers: {
+        //   'Content-Type': 'multipart/form-data'
+        // }
       })
+        .then(function (response) {
+          console.log(response)
+        })
+        .catch(function (response) {
+          //handle error
+          console.log(response)
+        })
 
-      // this.axios
-      //   .post('http://localhost:8000/api.php', formData, {
-      //     headers: {
-      //       'Content-Type': 'multipart/form-data'
-      //     }
-      //   })
-      //   .then(function (data) {
-      //     console.log(data.data)
-      //   })
-      //   .catch(function () {
-      //     console.log('FAILURE!!')
-      //   })
+      // await this.$axios.get('https://firebasestorage.googleapis.com/v0/b/thrift-shop-2b434.appspot.com/o/items%2Fitem_2').then(res => console.log(res))
     },
     fileUpload() {
       this.image = this.$refs.file.files[0]

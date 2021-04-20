@@ -134,13 +134,3 @@ input[type=radio]:checked + label:after {
 input[type=radio]:focus + label:before {
 	box-shadow: 0 0 0 3px $accent-2;
 }
-
-input[type=file] {
-	display: none;
-}
-.custom-file-upload {
-	border: 1px solid $grey;
-	display: inline-block;
-	padding: 6px 12px;
-	cursor: pointer;
-}
