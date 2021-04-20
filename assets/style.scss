@@ -59,3 +59,88 @@ nav {
 		}
 	}
 }
+
+textarea {
+  resize: none;
+}
+
+input, textarea, select {
+  font-size: 1em;
+  font-family: inherit;
+  padding: 0.25em 0.5em;
+  background-color: #fff;
+  border: 1px solid $grey;
+
+	&:focus {
+		outline: .5px solid $grey;
+	}
+
+	&:not(textarea):not([type=radio]) {
+		line-height: 1;
+		height: 2.25rem;
+	}
+}
+
+select {
+  appearance: none;
+  background-color: transparent;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+	outline: none;
+}
+
+input[type=radio] {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	// margin: 0;
+}
+input[type=radio] + label {
+	position: relative;
+	padding: 0 0 0 40px;
+	cursor: pointer;
+}
+input[type=radio] + label:before {
+	content: '';
+	position: absolute;
+	top: -3px;
+	left: 0;
+	width: 22px;
+	height: 22px;
+	border: 1px solid $grey;
+	border-radius: 50%;
+	background: #FFF;
+}
+input[type=radio] + label:after {
+	content: '';
+	position: absolute;
+	top: 2.5px;
+	left: 5px;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background: $accent;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.5);
+	opacity: 0;
+	transition: .2s;
+}
+input[type=radio]:checked + label:after {
+	opacity: 1;
+}
+input[type=radio]:focus + label:before {
+	box-shadow: 0 0 0 3px $accent-2;
+}
+
+input[type=file] {
+	display: none;
+}
+.custom-file-upload {
+	border: 1px solid $grey;
+	display: inline-block;
+	padding: 6px 12px;
+	cursor: pointer;
+}

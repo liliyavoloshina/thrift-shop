@@ -5,7 +5,7 @@
       <h1>New</h1>
       <div class="items">
         <div v-for="item in newItems" :key="item.name">
-          <nuxt-link :to="`${item.name}`">
+          <nuxt-link :to="`/items/${item.name}`">
             <img :src="item.image" :alt="item.name">
             <div class="text">{{item.name}}</div>
           </nuxt-link>
@@ -17,7 +17,7 @@
       <h1>Exclusive</h1>
       <div class="items">
         <div v-for="item in exclusiveItems" :key="item.name">
-          <nuxt-link :to="`${item.name}`">
+          <nuxt-link :to="`/items/${item.name}`">
             <img :src="item.image" :alt="item.name">
             <div class="text">{{item.name}}</div>
           </nuxt-link>
@@ -29,7 +29,7 @@
       <h1>Popular</h1>
       <div class="items">
         <div v-for="item in popularItems" :key="item.name">
-          <nuxt-link :to="`${item.name}`">
+          <nuxt-link :to="`/items/${item.name}`">
             <img :src="item.image" :alt="item.name">
             <div class="text">{{item.name}}</div>
           </nuxt-link>
@@ -145,7 +145,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/variables';
 .home-tray {
   display: grid;
   grid-template-rows: repeat(3, 1fr);

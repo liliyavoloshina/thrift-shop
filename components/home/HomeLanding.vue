@@ -97,7 +97,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/variables';
 .home-landing {
   display: grid;
   grid-template-columns: repeat(12, 1fr);

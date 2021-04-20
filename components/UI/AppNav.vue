@@ -6,22 +6,19 @@
           <nuxt-link to="/">Thrift Shop</nuxt-link>
         </li>
         <li>
-          <nuxt-link to="/woman">Woman</nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/man">Man</nuxt-link>
-        </li>
-        <li>
           <nuxt-link to="/clothes">Clothes</nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/shoes">Shoes</nuxt-link>
         </li>
         <li>
           <nuxt-link to="/accessories">Accessories</nuxt-link>
         </li>
         <li>
-          <nuxt-link to="/cart">Cart</nuxt-link>
+          <nuxt-link to="/shoes">Shoes</nuxt-link>
+        </li>
+        <li>
+          <nuxt-link to="/profile">Profile</nuxt-link>
+        </li>
+        <li>
+          <nuxt-link to="/favorite">Favorite</nuxt-link>
         </li>
       </ul>
     </nav>
@@ -35,30 +32,38 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~assets/variables.scss';
+header {
+  border-bottom: 1px solid $black;
+}
+
+nav {
+  height: 100%;
+}
+
 nav ul {
   display: grid;
-  grid-template-columns: repeat(3, 100px);
-  grid-gap: 10px;
-  justify-content: center;
-  justify-items: center;
+  grid-template-columns: 1fr repeat(5, fit-content(50px));
+  grid-gap: 20px;
+  align-items: center;
+  padding: 1rem;
   height: 100%;
   li {
-    display: inline;
     font-size: 1.5rem;
-    &:not(:last-child) {
-      margin-right: 2rem;
-    }
   }
   .logo {
+    grid-column: 1 / 2;
+    justify-self: start;
     font-style: italic;
     font-size: 3rem;
-    grid-column: 1 / 4;
   }
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr repeat(3, 100px);
+  @media (max-width: 640px) {
+    grid-template-columns: repeat(3, auto);
+    grid-gap: 10px;
+    justify-content: center;
+    justify-items: center;
     .logo {
-      grid-column: 1 / 2;
+      grid-column: 1 / 4;
+      justify-self: center;
     }
   }
 }
