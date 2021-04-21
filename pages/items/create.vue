@@ -5,30 +5,34 @@
       <div class="main">
         <div>
           <label for="name">Name:</label>
-          <input v-model="$v.name.$model" :class="$v.name.$invalid && $v.name.$dirty ? 'error-field' : ''" id="name"
-            type="text" placeholder="Type your thing name...">
-          <UIAppErrorMessage v-if="!$v.name.required && $v.name.$dirty">Name is required</UIAppErrorMessage>
+          <input v-model="$v.name.$model" :class="$v.name.$invalid && $v.name.$dirty || showError ? 'error-field' : ''"
+            id="name" type="text" placeholder="Type your thing name...">
+          <UIAppErrorMessage v-if="!$v.name.required && $v.name.$dirty || showError">Name is required
+          </UIAppErrorMessage>
         </div>
         <div>
           <label for="description">Description:</label>
           <textarea v-model="$v.description.$model"
-            :class="$v.description.$invalid && $v.description.$dirty ? 'error-field' : ''" id="description" rows="5"
-            maxlength="50" placeholder="Describe your thing..."></textarea>
-          <UIAppErrorMessage v-if="!$v.description.required && $v.description.$dirty">Description is required
+            :class="$v.description.$invalid && $v.description.$dirty || showError ? 'error-field' : ''" id="description"
+            rows="5" maxlength="50" placeholder="Describe your thing..."></textarea>
+          <UIAppErrorMessage v-if="!$v.description.required && $v.description.$dirty || showError">Description is
+            required
           </UIAppErrorMessage>
-          <UIAppErrorMessage v-if="!$v.description.minLength && $v.description.$dirty">Description is too short
+          <UIAppErrorMessage v-if="!$v.description.minLength && $v.description.$dirty || showError">Description is too
+            short
           </UIAppErrorMessage>
         </div>
         <div>
           <label for="category">Category:</label>
-          <select v-model="$v.category.$model" :class="$v.category.$invalid && $v.category.$dirty ? 'error-field' : ''"
-            id="category">
+          <select v-model="$v.category.$model"
+            :class="$v.category.$invalid && $v.category.$dirty || showError ? 'error-field' : ''" id="category">
             <option value>Select category</option>
             <option value="clothes">Clothes</option>
             <option value="shoes">Shoes</option>
             <option value="accessories">Accessories</option>
           </select>
-          <UIAppErrorMessage v-if="!$v.category.required && $v.category.$dirty">Category is required</UIAppErrorMessage>
+          <UIAppErrorMessage v-if="!$v.category.required && $v.category.$dirty || showError">Category is required
+          </UIAppErrorMessage>
         </div>
         <div>
           <label>Choose thing's gender:</label>
@@ -46,12 +50,17 @@
           </div>
         </div>
         <div>
-          <input @change="fileUpload()" ref="file" id="file" type="file" />
-          <label for="file">
-            {{imageName}}
+          <input @change="fileUpload()" ref="file" id="file" type="file" accept="image/*" />
+          <label
+            :class="($v.image.$error && $v.image.$dirty) || ($v.image.$error && showError) ? 'error-field' : ''"
+            for="file">
+            {{imageLabel}}
           </label>
+          <UIAppErrorMessage v-if="$v.image.$error">Image
+            is required
+          </UIAppErrorMessage>
         </div>
-        <button type="submit">Submit</button>
+        <button class="submit-button" type="submit">Submit</button>
       </div>
       <div class="note">
         <!-- <img :src="imageUrl" alt="image"> -->
@@ -62,7 +71,14 @@
 </template>
 
 <script>
-import {required, minLength} from 'vuelidate/lib/validators'
+import {required, minLength, isValidFileSize} from 'vuelidate/lib/validators'
+const file_size_validation = (value, vm) => {
+	if (!value) {
+		return true
+	}
+	let file = value
+	return file.size < 6291456
+}
 export default {
   data() {
     return {
@@ -73,11 +89,21 @@ export default {
       imageFile: null,
       imageName: null,
       owner: 'Liliya',
-      errors: false
+      showError: false
+    }
+  },
+  computed: {
+    imageLabel() {
+      return this.imageName ? this.imageName : 'Choose image'
     }
   },
   methods: {
     async submitForm() {
+      if (this.$v.$invalid) {
+        this.showError = true
+        return
+      }
+      this.showError = false
       let imageData = new FormData()
       imageData.append('file', this.imageFile)
 
@@ -99,6 +125,7 @@ export default {
       }
     },
     fileUpload() {
+      this.$v.image.$touch()
       this.imageFile = this.$refs.file.files[0]
       this.imageName = this.$refs.file.files[0].name
     }
@@ -113,6 +140,9 @@ export default {
     },
     category: {
       required
+    },
+    image: {
+      file_size_validation
     }
   }
 }
@@ -161,6 +191,21 @@ form {
   @media (max-width: 640px) {
     grid-column: 1/2;
     grid-row: 1/2;
+  }
+}
+
+.submit-button {
+  align-items: center;
+  border: none;
+  color: white;
+  text-decoration: none;
+  background-color: $black;
+  font-size: 1.8rem;
+  line-height: 1.5;
+  transition: opacity 0.2s ease-out;
+
+  &:hover {
+    opacity: 0.4;
   }
 }
 

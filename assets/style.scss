@@ -145,22 +145,20 @@ input[type='file'] {
 }
 
 input[type='file'] + label {
-	background: #f15d22;
-	border: none;
-	border-radius: 5px;
-	color: #fff;
+	width: 50%;
+	background: transparent;
+	border: 1px solid $black;
+	color: $black;
 	cursor: pointer;
-	display: inline-block;
 	font-size: inherit;
 	font-weight: 500;
 	margin-bottom: 1rem;
 	outline: none;
-	padding: 1rem 50px;
+	padding: 1rem;
 	position: relative;
 	transition: all 0.3s;
-	vertical-align: middle;
 
-	&:hover {
-		background-color: darken(#f15d22, 10%);
-	}
+	// &:hover {
+	// 	background-color: $grey;
+	// }
 }
