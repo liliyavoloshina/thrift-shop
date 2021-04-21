@@ -5,24 +5,33 @@
       <div class="main">
         <div>
           <label for="name">Name:</label>
-          <input v-model="name" id="name" type="text" placeholder="Type your thing name...">
+          <input v-model="$v.name.$model" :class="$v.name.$invalid && $v.name.$dirty ? 'error-field' : ''" id="name"
+            type="text" placeholder="Type your thing name...">
+          <UIAppErrorMessage v-if="!$v.name.required && $v.name.$dirty">Name is required</UIAppErrorMessage>
         </div>
         <div>
           <label for="description">Description:</label>
-          <textarea v-model="description" id="description" rows="5" maxlength="50"
-            placeholder="Describe your thing..."></textarea>
+          <textarea v-model="$v.description.$model"
+            :class="$v.description.$invalid && $v.description.$dirty ? 'error-field' : ''" id="description" rows="5"
+            maxlength="50" placeholder="Describe your thing..."></textarea>
+          <UIAppErrorMessage v-if="!$v.description.required && $v.description.$dirty">Description is required
+          </UIAppErrorMessage>
+          <UIAppErrorMessage v-if="!$v.description.minLength && $v.description.$dirty">Description is too short
+          </UIAppErrorMessage>
         </div>
         <div>
           <label for="category">Category:</label>
-          <select v-model="category" id="category">
+          <select v-model="$v.category.$model" :class="$v.category.$invalid && $v.category.$dirty ? 'error-field' : ''"
+            id="category">
             <option value>Select category</option>
             <option value="clothes">Clothes</option>
             <option value="shoes">Shoes</option>
             <option value="accessories">Accessories</option>
           </select>
+          <UIAppErrorMessage v-if="!$v.category.required && $v.category.$dirty">Category is required</UIAppErrorMessage>
         </div>
         <div>
-          <label for="category">Choose thing's gender:</label>
+          <label>Choose thing's gender:</label>
           <div class="radio-gender">
             <input v-model="gender" id="male" value="male" name="gender" type="radio">
             <label for="male">Male</label>
@@ -32,20 +41,20 @@
             <label for="female">Female</label>
           </div>
           <div class="radio-gender">
-            <input v-model="gender" id="unisex" value="unisex" name="gender" type="radio">
+            <input v-model="gender" id="unisex" value="unisex" name="gender" type="radio" checked>
             <label for="unisex">Unisex</label>
           </div>
         </div>
         <div>
-          <label for="file-upload" class="custom-file-upload">
-            Load image
+          <input @change="fileUpload()" ref="file" id="file" type="file" />
+          <label for="file">
+            {{imageName}}
           </label>
-          <input @change="fileUpload()" ref="file" id="file-upload" type="file" />
         </div>
         <button type="submit">Submit</button>
       </div>
       <div class="note">
-        <img :src="imageUrl" alt="image">
+        <!-- <img :src="imageUrl" alt="image"> -->
         <pre>{{imageName}}</pre>
       </div>
     </form>
@@ -53,7 +62,7 @@
 </template>
 
 <script>
-import {v4 as uuidv4} from 'uuid'
+import {required, minLength} from 'vuelidate/lib/validators'
 export default {
   data() {
     return {
@@ -63,48 +72,28 @@ export default {
       gender: 'unisex',
       imageFile: null,
       imageName: null,
-      imageUrl: null,
-      owner: 'Liliya'
+      owner: 'Liliya',
+      errors: false
     }
   },
   methods: {
-    async postImage() {
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }
-      let formData = new FormData()
-      formData.append('file', this.imageFile)
-
-      try {
-        const res = await this.$axios.$post(
-          `${process.env.firebaseStorageItemsUrl}items%2F${this.imageName}?alt=media`,
-          formData,
-          config
-        )
-        const imageUrl = `${process.env.firebaseStorageItemsUrl}items%2F${this.imageName}?alt=media&token=${res.downloadTokens}`
-        this.imageUrl = imageUrl
-      } catch (e) {
-        console.log(e)
-      }
-    },
     async submitForm() {
-      const itemData = {
-        id: uuidv4(),
-        name: this.name,
-        description: this.description,
-        category: this.category,
-        gender: this.gender,
-        imageUrl: this.imageUrl,
-        owner: this.owner,
-        favorite: 0,
-        createdAt: new Date()
-      }
+      let imageData = new FormData()
+      imageData.append('file', this.imageFile)
 
       try {
-        await this.postImage()
-        this.$axios.$post(`https://thrift-shop-2b434-default-rtdb.firebaseio.com/items.json`, itemData)
+        await this.$store.dispatch('items/postImage', {
+          imageData,
+          imageName: this.imageName
+        })
+        const itemData = {
+          name: this.name,
+          description: this.description,
+          category: this.category,
+          gender: this.gender,
+          createdAt: new Date()
+        }
+        await this.$store.dispatch('items/postNewItem', itemData)
       } catch (e) {
         console.log(e)
       }
@@ -112,6 +101,18 @@ export default {
     fileUpload() {
       this.imageFile = this.$refs.file.files[0]
       this.imageName = this.$refs.file.files[0].name
+    }
+  },
+  validations: {
+    name: {
+      required
+    },
+    description: {
+      required,
+      minLength: minLength(10)
+    },
+    category: {
+      required
     }
   }
 }
@@ -161,5 +162,9 @@ form {
     grid-column: 1/2;
     grid-row: 1/2;
   }
+}
+
+.error-field {
+  border-color: $error-border;
 }
 </style>
