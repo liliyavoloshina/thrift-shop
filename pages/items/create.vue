@@ -45,16 +45,15 @@
         <button type="submit">Submit</button>
       </div>
       <div class="note">
-        <img src="https://firebasestorage.googleapis.com/v0/b/thrift-shop-2b434.appspot.com/o/items%2Fitem_2" alt="">
-        <!-- <img src="https://firebasestorage.googleapis.com/v0/b/thrift-shop-2b434.appspot.com/o/items%2Fitem_2" alt=""> -->
-        <pre>{{image}}</pre>
+        <img :src="imageUrl" alt="image">
+        <pre>{{imageName}}</pre>
       </div>
     </form>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import {v4 as uuidv4} from 'uuid'
 export default {
   data() {
     return {
@@ -62,35 +61,57 @@ export default {
       description: '',
       category: '',
       gender: 'unisex',
-      image: null
+      imageFile: null,
+      imageName: null,
+      imageUrl: null,
+      owner: 'Liliya'
     }
   },
   methods: {
-    async submitForm() {
-      // let formData = new FormData()
-      // formData.append('file', this.image)
-      let formData = this.image
-      console.log(this.image)
-      axios({
-        method: 'post',
-        url: `https://firebasestorage.googleapis.com/v0/b/thrift-shop-2b434.appspot.com/o/items%2Fitem_2?alt=media`,
-        data: formData,
-        // headers: {
-        //   'Content-Type': 'multipart/form-data'
-        // }
-      })
-        .then(function (response) {
-          console.log(response)
-        })
-        .catch(function (response) {
-          //handle error
-          console.log(response)
-        })
+    async postImage() {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+      let formData = new FormData()
+      formData.append('file', this.imageFile)
 
-      // await this.$axios.get('https://firebasestorage.googleapis.com/v0/b/thrift-shop-2b434.appspot.com/o/items%2Fitem_2').then(res => console.log(res))
+      try {
+        const res = await this.$axios.$post(
+          `${process.env.firebaseStorageItemsUrl}items%2F${this.imageName}?alt=media`,
+          formData,
+          config
+        )
+        const imageUrl = `${process.env.firebaseStorageItemsUrl}items%2F${this.imageName}?alt=media&token=${res.downloadTokens}`
+        this.imageUrl = imageUrl
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async submitForm() {
+      const itemData = {
+        id: uuidv4(),
+        name: this.name,
+        description: this.description,
+        category: this.category,
+        gender: this.gender,
+        imageUrl: this.imageUrl,
+        owner: this.owner,
+        favorite: 0,
+        createdAt: new Date()
+      }
+
+      try {
+        await this.postImage()
+        this.$axios.$post(`https://thrift-shop-2b434-default-rtdb.firebaseio.com/items.json`, itemData)
+      } catch (e) {
+        console.log(e)
+      }
     },
     fileUpload() {
-      this.image = this.$refs.file.files[0]
+      this.imageFile = this.$refs.file.files[0]
+      this.imageName = this.$refs.file.files[0].name
     }
   }
 }

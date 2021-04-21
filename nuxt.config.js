@@ -50,6 +50,11 @@ export default {
 		}
 	},
 
+	env: {
+		firebaseStorageItemsUrl: process.env.FIREBASE_STORAGE_ITEMS,
+		firebaseApi: process.env.FIREBASE_API
+	},
+
 	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {}
 }
