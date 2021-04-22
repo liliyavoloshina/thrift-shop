@@ -52,18 +52,17 @@
         <div>
           <input @change="fileUpload()" ref="file" id="file" type="file" accept="image/*" />
           <label
-            :class="($v.image.$error && $v.image.$dirty) || ($v.image.$error && showError) ? 'error-field' : ''"
+            :class="($v.image.$invalid && $v.image.$dirty) || ($v.image.$invalid && showError) ? 'error-field' : ''"
             for="file">
             {{imageLabel}}
           </label>
-          <UIAppErrorMessage v-if="$v.image.$error">Image
+          <UIAppErrorMessage v-if="($v.image.$invalid && showError)">Image
             is required
           </UIAppErrorMessage>
         </div>
-        <button class="submit-button" type="submit">Submit</button>
+        <button :disabled="showError && $v.$invalid" class="submit-button" type="submit">Submit</button>
       </div>
       <div class="note">
-        <!-- <img :src="imageUrl" alt="image"> -->
         <pre>{{imageName}}</pre>
       </div>
     </form>
@@ -71,14 +70,7 @@
 </template>
 
 <script>
-import {required, minLength, isValidFileSize} from 'vuelidate/lib/validators'
-const file_size_validation = (value, vm) => {
-	if (!value) {
-		return true
-	}
-	let file = value
-	return file.size < 6291456
-}
+import {required, minLength, requiredIf} from 'vuelidate/lib/validators'
 export default {
   data() {
     return {
@@ -142,7 +134,9 @@ export default {
       required
     },
     image: {
-      file_size_validation
+      required: requiredIf(function () {
+        return this.imageFile == null
+      })
     }
   }
 }
@@ -204,8 +198,13 @@ form {
   line-height: 1.5;
   transition: opacity 0.2s ease-out;
 
-  &:hover {
+  &:not([disabled]):hover {
     opacity: 0.4;
+  }
+
+  &:disabled {
+    background-color: $grey;
+    cursor: not-allowed;
   }
 }
 
