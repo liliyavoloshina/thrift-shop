@@ -47,10 +47,18 @@ export const actions = {
 		}
 
 		try {
-      await this.$axios.$post(`${process.env.firebaseApi}items.json`, dataToSend)
+			await this.$axios.$post(
+				`${process.env.firebaseApi}items.json`,
+				dataToSend
+			)
 			commit('addNewItem', dataToSend)
 		} catch (e) {
 			console.log(e)
+		}
+	},
+	nuxtServerInit({commit}, {req}) {
+		if (req.session.user) {
+			commit('user', req.session.user)
 		}
 	}
 }

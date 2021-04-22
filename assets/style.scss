@@ -46,7 +46,28 @@ button:focus {
 	outline: 0;
 }
 
+.submit-button {
+  align-items: center;
+  border: none;
+  color: white;
+  text-decoration: none;
+  background-color: $black;
+  font-size: 1.8rem;
+  line-height: 1.5;
+  transition: opacity 0.2s ease-out;
+
+  &:not([disabled]):hover {
+    opacity: 0.4;
+  }
+
+  &:disabled {
+    background-color: $grey;
+    cursor: not-allowed;
+  }
+}
+
 img {
+	display: block;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
@@ -99,7 +120,6 @@ input[type='radio'] {
 	position: absolute;
 	z-index: -1;
 	opacity: 0;
-	// margin: 0;
 }
 input[type='radio'] + label {
 	position: relative;
@@ -157,8 +177,10 @@ input[type='file'] + label {
 	padding: 1rem;
 	position: relative;
 	transition: all 0.3s;
-
-	// &:hover {
-	// 	background-color: $grey;
-	// }
+}
+a.nuxt-link-exact-active {
+	color: $accent;
+}
+.logo .nuxt-link-exact-active {
+	color: $black;
 }

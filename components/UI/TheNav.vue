@@ -3,16 +3,10 @@
     <nav>
       <ul>
         <li class="logo">
-          <nuxt-link to="/">Thrift Shop</nuxt-link>
+          <nuxt-link to="/" exact>Thrift Shop</nuxt-link>
         </li>
         <li>
-          <nuxt-link to="/clothes">Clothes</nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/accessories">Accessories</nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/shoes">Shoes</nuxt-link>
+          <nuxt-link to="/items">Search!</nuxt-link>
         </li>
         <li>
           <nuxt-link to="/profile">Profile</nuxt-link>
@@ -55,8 +49,9 @@ nav ul {
     justify-self: start;
     font-style: italic;
     font-size: 3rem;
+    font-weight: 600;
   }
-  @media (max-width: 640px) {
+  @media (max-width: 480px) {
     grid-template-columns: repeat(3, auto);
     grid-gap: 10px;
     justify-content: center;

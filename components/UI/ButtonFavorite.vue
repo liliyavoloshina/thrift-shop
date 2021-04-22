@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h1>Accessories</h1>
-  </div>
+  <button>
+    Fav
+  </button>
 </template>
 
 <script>

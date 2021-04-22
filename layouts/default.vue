@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <UIAppNav />
+    <UITheNav />
     <main>
       <Nuxt />
     </main>
@@ -19,7 +19,7 @@
     padding: 20px;
   }
   footer {
-    background: deeppink;
+    background: $accent;
   }
 }
 </style>

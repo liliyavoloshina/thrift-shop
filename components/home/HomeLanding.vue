@@ -29,7 +29,7 @@
         <img
           src="https://images.unsplash.com/photo-1525562723836-dca67a71d5f1?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTF8fGNsb3RoZXN8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
           alt="about">
-        <div class="text text-2">How does it work?</div>
+        <div class="text">How does it work?</div>
       </nuxt-link>
     </div>
     <div class="item-small">
@@ -62,20 +62,18 @@ export default {
 <style lang="scss" scoped>
 .home-landing {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
-  grid-auto-rows: minmax(200px, 300px);
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(150px, 200px);
   gap: 1rem 1rem;
   min-height: 100vh;
   margin: 0 auto;
 
   .item-large {
-    grid-column: span 2;
+    grid-column: span 4;
     width: 100%;
-    // height: 420px;
   }
   .item-small {
-    grid-column: span 1;
-    // height: 100px;
+    grid-column: span 2;
     position: relative;
     .text {
       position: absolute;
@@ -101,10 +99,6 @@ export default {
       font-size: 4rem;
       color: white;
       background-color: $trans-black;
-    }
-    .text-2 {
-      top: 45%;
-      left: 0;
     }
   }
 }
