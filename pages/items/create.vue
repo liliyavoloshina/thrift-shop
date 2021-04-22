@@ -63,7 +63,7 @@
         <button :disabled="showError && $v.$invalid" class="submit-button" type="submit">Submit</button>
       </div>
       <div class="note">
-        <pre>{{imageName}}</pre>
+        Note that the more detailed you describe your item, the faster customers will notice it.
       </div>
     </form>
   </div>
@@ -145,25 +145,17 @@ export default {
 <style lang="scss" scoped>
 form {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: minmax(min-content, max-content);
+  align-items: start;
   gap: 2rem;
   margin-top: $margin-from-h;
-
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
-  }
 }
 
 .main {
-  grid-column: 1/3;
   display: grid;
   grid-auto-rows: minmax(50px, auto);
   gap: 10px;
-
-  @media (max-width: 640px) {
-    grid-column: 1/2;
-    grid-row: 2/3;
-  }
 
   > * {
     display: flex;
@@ -181,11 +173,9 @@ form {
   }
 }
 .note {
-  grid-column: 3/4;
-  @media (max-width: 640px) {
-    grid-column: 1/2;
-    grid-row: 1/2;
-  }
+  background-color: $note-light;
+  font-size: 1.5rem;
+  padding: 2rem;
 }
 
 .submit-button {
