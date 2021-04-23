@@ -40,6 +40,8 @@ ul {
 
 button {
 	cursor: pointer;
+  border: none;
+  text-decoration: none;
 }
 
 button:focus {
@@ -48,9 +50,7 @@ button:focus {
 
 .submit-button {
   align-items: center;
-  border: none;
   color: white;
-  text-decoration: none;
   background-color: $black;
   font-size: 1.8rem;
   line-height: 1.5;

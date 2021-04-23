@@ -1,20 +1,6 @@
 import {v4 as uuidv4} from 'uuid'
 
-export const state = () => ({
-	items: [],
-	imageUrl: null
-})
-
-export const mutations = {
-	addNewImage(state, imageUrl) {
-		state.imageUrl = imageUrl
-	},
-	addNewItem(state, item) {
-		state.items.push(item)
-	}
-}
-
-export const actions = {
+export default {
 	async postImage({commit}, {imageData, imageName}) {
 		const config = {
 			headers: {
@@ -56,9 +42,12 @@ export const actions = {
 			console.log(e)
 		}
 	},
-	nuxtServerInit({commit}, {req}) {
-		if (req.session.user) {
-			commit('user', req.session.user)
-		}
+	async getItems({commit}) {
+		const res = await this.$axios.$get(`${process.env.firebaseApi}items.json`)
+    const items = []
+    for (let item in res) {
+      items.push({...res[item]})
+    }
+    commit('setItems', items)
 	}
 }

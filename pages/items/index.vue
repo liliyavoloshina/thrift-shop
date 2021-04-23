@@ -2,19 +2,26 @@
   <section>
     <aside>aside</aside>
     <main>
-      <div class="item">
-        <ItemCart/>
+      <div v-for="item in items" :key="item.id" class="item">
+        <ItemCard :item="item" />
       </div>
-      <div class="item"></div>
-      <div class="item"></div>
-      <div class="item"></div>
-      <div class="item"></div>
     </main>
   </section>
 </template>
 
 <script>
-export default {}
+import {mapState} from 'vuex'
+export default {
+  name: 'Items',
+  async fetch({store}) {
+    await store.dispatch('items/getItems')
+  },
+  computed: {
+    ...mapState('items', {
+      items: 'items'
+    })
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -38,9 +45,8 @@ main {
   grid-column: 2/4;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  grid-auto-rows: 300px;
+  grid-auto-rows: 350px;
   gap: 1rem;
-  background-color: green;
   @media (max-width: 480px) {
     grid-column: 1/3;
   }
