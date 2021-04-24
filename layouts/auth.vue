@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: red;
+  background-color: $accent;
   
   main {
     min-height: 200px;
