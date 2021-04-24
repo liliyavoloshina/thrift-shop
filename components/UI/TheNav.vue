@@ -39,8 +39,10 @@ nav ul {
   grid-template-columns: 1fr repeat(5, fit-content(50px));
   grid-gap: 20px;
   align-items: center;
-  padding: 1rem;
+  max-width: 1561px;
   height: 100%;
+  margin: 0 auto;
+  padding: 1rem;
   li {
     font-size: 1.5rem;
   }

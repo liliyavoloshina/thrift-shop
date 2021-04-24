@@ -1,5 +1,3 @@
-import {v4 as uuidv4} from 'uuid'
-
 export default {
 	async postImage({commit}, {imageData, imageName}) {
 		const config = {
@@ -21,7 +19,6 @@ export default {
 	},
 	async postNewItem({state, commit}, itemData) {
 		const dataToSend = {
-			id: uuidv4(),
 			name: itemData.name,
 			description: itemData.description,
 			category: itemData.category,
@@ -33,11 +30,11 @@ export default {
 		}
 
 		try {
-			await this.$axios.$post(
+			const res = await this.$axios.$post(
 				`${process.env.firebaseApi}items.json`,
 				dataToSend
 			)
-			commit('addNewItem', dataToSend)
+			commit('addNewItem', {...dataToSend, id: res.name})
 		} catch (e) {
 			console.log(e)
 		}
@@ -46,7 +43,7 @@ export default {
 		const res = await this.$axios.$get(`${process.env.firebaseApi}items.json`)
     const items = []
     for (let item in res) {
-      items.push({...res[item]})
+      items.push({...res[item], id: item})
     }
     commit('setItems', items)
 	}

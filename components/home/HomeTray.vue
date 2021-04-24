@@ -151,7 +151,6 @@ export default {
   gap: 2rem 0;
   margin-top: 2rem;
   > * {
-    // background-color: $white;
     overflow-x: auto;
     overflow-y: hidden;
     &::-webkit-scrollbar {

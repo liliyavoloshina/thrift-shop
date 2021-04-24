@@ -65,7 +65,8 @@ export default {
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(150px, 200px);
   gap: 1rem 1rem;
-  min-height: 100vh;
+  max-width: 1561px;
+  height: auto;
   margin: 0 auto;
 
   .item-large {
@@ -86,7 +87,7 @@ export default {
       background-color: $trans-black;
     }
     @media (max-width: 480px) {
-      grid-column: span 2;
+      grid-column: span 4;
     }
   }
   .about {

@@ -42,13 +42,13 @@ export default {
 	},
 
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios
-	axios: {
-		headers: {
-			common: {
-				'Content-Type': 'multipart/form-data'
-			}
-		}
-	},
+	// axios: {
+	// 	headers: {
+	// 		common: {
+	// 			'Content-Type': 'multipart/form-data'
+	// 		}
+	// 	}
+	// },
 
 	env: {
 		firebaseStorageItemsUrl: process.env.FIREBASE_STORAGE_ITEMS,

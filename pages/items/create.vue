@@ -41,7 +41,7 @@
             <label for="male">Male</label>
           </div>
           <div class="radio-gender">
-            <input v-model="gender" id="female" value="fenale" name="gender" type="radio">
+            <input v-model="gender" id="female" value="female" name="gender" type="radio">
             <label for="female">Female</label>
           </div>
           <div class="radio-gender">

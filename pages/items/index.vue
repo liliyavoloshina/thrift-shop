@@ -1,11 +1,11 @@
 <template>
   <section>
     <aside>aside</aside>
-    <main>
+    <div class="main">
       <div v-for="item in items" :key="item.id" class="item">
         <ItemCard :item="item" />
       </div>
-    </main>
+    </div>
   </section>
 </template>
 
@@ -28,7 +28,7 @@ export default {
 section {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 2rem;
+  gap: 0 2rem;
   min-height: 100vh;
 }
 
@@ -41,7 +41,7 @@ aside {
   }
 }
 
-main {
+.main {
   grid-column: 2/4;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
