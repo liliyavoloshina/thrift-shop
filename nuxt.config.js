@@ -24,13 +24,14 @@ export default {
 	css: ['~/assets/style'],
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: ['~plugins/vuelidate.js'],
+	plugins: ['~plugins/vuelidate.js', ],
+	// '~plugins/moment.client.js'
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
 	components: true,
 
 	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-	buildModules: ['@nuxtjs/style-resources'],
+	buildModules: ['@nuxtjs/style-resources', '@nuxtjs/moment'],
 
 	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: [

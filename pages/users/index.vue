@@ -1,6 +1,7 @@
 <template>
-  <div>
-
+  <div class="profile container">
+    <div class="image"></div>
+    <div class="info"></div>
   </div>
 </template>
 

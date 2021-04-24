@@ -39,9 +39,13 @@ ul {
 }
 
 button {
+	font-family: 'Cormorant Garamond', serif, 'Helvetica Neue', Arial,
+		sans-serif;
+	font-weight: 600;
+	letter-spacing: 1px;
 	cursor: pointer;
-  border: none;
-  text-decoration: none;
+	border: none;
+	text-decoration: none;
 }
 
 button:focus {
@@ -49,21 +53,21 @@ button:focus {
 }
 
 .submit-button {
-  align-items: center;
-  color: white;
-  background-color: $black;
-  font-size: 1.8rem;
-  line-height: 1.5;
-  transition: opacity 0.2s ease-out;
+	align-items: center;
+	color: white;
+	background-color: $black;
+	font-size: 1.8rem;
+	line-height: 1.5;
+	transition: opacity 0.2s ease-out;
 
-  &:not([disabled]):hover {
-    opacity: 0.4;
-  }
+	&:not([disabled]):hover {
+		opacity: 0.4;
+	}
 
-  &:disabled {
-    background-color: $grey;
-    cursor: not-allowed;
-  }
+	&:disabled {
+		background-color: $grey;
+		cursor: not-allowed;
+	}
 }
 
 img {
@@ -114,6 +118,14 @@ select {
 	cursor: inherit;
 	line-height: inherit;
 	outline: none;
+}
+
+.form-input {
+	display: flex;
+	flex-direction: column;
+	label {
+		margin-bottom: 0.5rem;
+	}
 }
 
 input[type='radio'] {
@@ -178,9 +190,72 @@ input[type='file'] + label {
 	position: relative;
 	transition: all 0.3s;
 }
+
+input[type='checkbox']:checked,
+input[type='checkbox']:not(:checked) {
+	position: absolute;
+	left: -9999px;
+}
+
+input[type='checkbox']:checked + label,
+input[type='checkbox']:not(:checked) + label {
+	display: inline-block;
+	position: relative;
+	padding-left: 28px;
+	line-height: 20px;
+	cursor: pointer;
+}
+
+input[type='checkbox']:checked + label:before,
+input[type='checkbox']:not(:checked) + label:before {
+	content: '';
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 20px;
+	height: 20px;
+	border: 1px solid $grey;
+	background-color: white;
+}
+
+input[type='checkbox']:checked + label:before,
+input[type='checkbox']:not(:checked) + label:before {
+	border-radius: 2px;
+}
+
+input[type='checkbox']:checked + label:after,
+input[type='checkbox']:not(:checked) + label:after {
+	content: '';
+	position: absolute;
+	transition: all 0.2s ease-out;
+}
+
+input[type='checkbox']:checked + label:after,
+input[type='checkbox']:not(:checked) + label:after {
+	left: 5px;
+	top: 1px;
+	width: 10px;
+	height: 15px;
+	border-radius: 1px;
+	border-left: 4px solid $accent;
+	border-bottom: 4px solid $accent;
+	transform: rotate(-45deg);
+}
+
+input[type='checkbox']:not(:checked) + label:after {
+	opacity: 0;
+}
+
+input[type='checkbox']:checked + label:after {
+	opacity: 1;
+}
 a.nuxt-link-exact-active {
 	color: $accent;
 }
 .logo .nuxt-link-exact-active {
 	color: $black;
+}
+.container {
+	max-width: 1561px;
+	margin: 0 auto;
 }

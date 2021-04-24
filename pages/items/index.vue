@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="container">
     <aside>aside</aside>
     <div class="main">
       <div v-for="item in items" :key="item.id" class="item">

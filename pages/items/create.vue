@@ -1,16 +1,16 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Create new item</h1>
     <form @submit.prevent="submitForm">
       <div class="main">
-        <div>
+        <div class="form-input">
           <label for="name">Name:</label>
           <input v-model="$v.name.$model" :class="$v.name.$invalid && $v.name.$dirty || showError ? 'error-field' : ''"
             id="name" type="text" placeholder="Type your thing name...">
           <UIErrorMessage v-if="!$v.name.required && $v.name.$dirty || showError">Name is required
           </UIErrorMessage>
         </div>
-        <div>
+        <div class="form-input">
           <label for="description">Description:</label>
           <textarea v-model="$v.description.$model"
             :class="$v.description.$invalid && $v.description.$dirty || showError ? 'error-field' : ''" id="description"
@@ -22,7 +22,7 @@
             short
           </UIErrorMessage>
         </div>
-        <div>
+        <div class="form-input">
           <label for="category">Category:</label>
           <select v-model="$v.category.$model"
             :class="$v.category.$invalid && $v.category.$dirty || showError ? 'error-field' : ''" id="category">
@@ -34,7 +34,7 @@
           <UIErrorMessage v-if="!$v.category.required && $v.category.$dirty || showError">Category is required
           </UIErrorMessage>
         </div>
-        <div>
+        <div class="form-input">
           <label>Choose thing's gender:</label>
           <div class="radio-gender">
             <input v-model="gender" id="male" value="male" name="gender" type="radio">
@@ -49,7 +49,7 @@
             <label for="unisex">Unisex</label>
           </div>
         </div>
-        <div>
+        <div class="form-input">
           <input @change="fileUpload()" ref="file" id="file" type="file" accept="image/*" />
           <label
             :class="($v.image.$invalid && $v.image.$dirty) || ($v.image.$invalid && showError) ? 'error-field' : ''"
@@ -156,14 +156,6 @@ form {
   display: grid;
   grid-auto-rows: minmax(50px, auto);
   gap: 10px;
-
-  > * {
-    display: flex;
-    flex-direction: column;
-    label {
-      margin-bottom: 0.5rem;
-    }
-  }
 
   .radio-gender {
     margin-bottom: 1rem;

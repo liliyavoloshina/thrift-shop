@@ -18,7 +18,7 @@ export default {}
   border-radius: 50%;
   background-color: $accent-2;
 
-  &.active .heart {
+  &.active .heart, &:hover .heart  {
     fill: $accent;
   }
 }
@@ -27,16 +27,7 @@ export default {}
   fill: white;
   width: 100%;
   height: 100%;
-  // animation: pulse 1s ease infinite;
-
-  &:hover {
-    fill: $accent;
-  }
 }
 
-// @keyframes pulse {
-//   0% { transform: scale(1); }
-//   50% { transform: scale(1.3); }
-//   100% { transform: scale(1); }
-// }
+
 </style>

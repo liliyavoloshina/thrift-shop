@@ -4,6 +4,7 @@
       <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
 	c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
     </svg>
+    <span>Add to Favorites</span>
   </button>
 </template>
 
@@ -13,30 +14,25 @@ export default {}
 
 <style lang="scss" scoped>
 .icon-button {
+  display: flex;
+  align-items: center;
+  float: right;
   width: 100px;
-  height: 50px;
-  border-radius: 50%;
+  height: 35px;
   background-color: $accent-2;
 
-  &.active .heart {
+  &.active .heart, &:hover .heart {
     fill: $accent;
+  }
+
+  span {
+    color: white;
   }
 }
 
 .heart {
   fill: white;
-  width: 100%;
+  width: 30%;
   height: 100%;
-  // animation: pulse 1s ease infinite;
-
-  &:hover {
-    fill: $accent;
-  }
 }
-
-// @keyframes pulse {
-//   0% { transform: scale(1); }
-//   50% { transform: scale(1.3); }
-//   100% { transform: scale(1); }
-// }
 </style>
