@@ -218,6 +218,10 @@ input[type='checkbox']:not(:checked) + label:before {
 	background-color: white;
 }
 
+input[type='checkbox'].error-field + label:before{
+	border: 1px solid $error-border;
+}
+
 input[type='checkbox']:checked + label:before,
 input[type='checkbox']:not(:checked) + label:before {
 	border-radius: 2px;
@@ -258,4 +262,8 @@ a.nuxt-link-exact-active {
 .container {
 	max-width: 1561px;
 	margin: 0 auto;
+}
+
+.error-field {
+  border-color: $error-border;
 }

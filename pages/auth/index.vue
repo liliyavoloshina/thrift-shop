@@ -2,27 +2,58 @@
   <form @submit.prevent="onSubmit">
     <h1>Sign In</h1>
     <div class="form-input">
-      <label for="name">Name:</label>
-      <input v-model="name" type="text" id="name" placeholder="Enter your name or nickname...">
+      <label for="email">Email:</label>
+      <input v-model="$v.email.$model" :class="$v.email.$error ? 'error-field' : ''" type="text" id="email"
+        placeholder="Enter your email or nickemail...">
+      <UIErrorMessage v-if="!$v.email.required && $v.email.$dirty">Email is required</UIErrorMessage>
+      <UIErrorMessage v-if="!$v.email.email && $v.email.$dirty">Email must be valid</UIErrorMessage>
     </div>
     <div class="form-input">
       <label for="password">Password:</label>
-      <input v-model="password" type="password" id="password" placeholder="Enter your password...">
+      <input v-model="$v.password.$model" :class="$v.password.$error ? 'error-field' : ''" type="password" id="password"
+        placeholder="Enter your password...">
+      <UIErrorMessage v-if="!$v.password.required && $v.password.$dirty">Password is required</UIErrorMessage>
     </div>
     <div class="actions">
-      <button class="submit-button button" type="submit">Sign In</button>
+      <button :disabled="$v.$anyDirty && $v.$invalid" class="submit-button button" type="submit">Sign In</button>
       <nuxt-link to="/auth/signup">Don't have an account?</nuxt-link>
     </div>
   </form>
 </template>
 
 <script>
+import {required, email} from 'vuelidate/lib/validators'
 export default {
   name: 'Auth',
   data() {
     return {
-      name: '',
+      email: '',
       password: ''
+    }
+  },
+  methods: {
+    async onSubmit() {
+      this.$v.$touch()
+      const userInfo = {
+        email: this.email,
+        password: this.password,
+        isSignin: true
+      }
+
+      try {
+        await this.$store.dispatch('auth/authUser', userInfo)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  },
+  validations: {
+    email: {
+      required,
+      email
+    },
+    password: {
+      required
     }
   },
   layout: 'auth'

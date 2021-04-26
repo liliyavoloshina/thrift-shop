@@ -3,40 +3,42 @@
     <h1>Sign Up</h1>
     <div class="form-input">
       <label for="name">Name:</label>
-      <input v-model="$v.name.$model" type="text" id="name" placeholder="Enter your name or nickname...">
-      <UIErrorMessage v-if="!$v.name.required && $v.$anyDirty">Name is required</UIErrorMessage>
+      <input v-model="$v.name.$model" :class="$v.name.$error ? 'error-field' : ''" type="text" id="name" placeholder="Enter your name or nickname...">
+      <UIErrorMessage v-if="!$v.name.required && $v.name.$dirty">Name is required</UIErrorMessage>
     </div>
     <div class="form-input">
       <label for="email">E-mail:</label>
-      <input v-model="$v.email.$model" type="email" id="email" placeholder="Enter your e-mail address...">
-      <UIErrorMessage v-if="!$v.email.required && $v.$anyDirty">E-mail is required</UIErrorMessage>
+      <input v-model="$v.email.$model" :class="$v.email.$error ? 'error-field' : ''" type="email" id="email" placeholder="Enter your e-mail address...">
+      <UIErrorMessage v-if="!$v.email.required && $v.email.$dirty">E-mail is required</UIErrorMessage>
+      <UIErrorMessage v-if="!$v.email.email && $v.email.$dirty">E-mail must be valid</UIErrorMessage>
     </div>
     <div class="form-input">
       <label for="password">Password:</label>
-      <input v-model="$v.password.$model" type="password" id="password" placeholder="Enter password...">
-      <UIErrorMessage v-if="!$v.password.required && $v.$anyDirty">Password is required</UIErrorMessage>
-      <UIErrorMessage v-if="!$v.password.minLength && $v.$anyDirty">Password must have at least
+      <input v-model="$v.password.$model" :class="$v.password.$error ? 'error-field' : ''" type="password" id="password" placeholder="Enter password...">
+      <UIErrorMessage v-if="!$v.password.required && $v.password.$dirty">Password is required</UIErrorMessage>
+      <UIErrorMessage v-if="!$v.password.minLength && $v.password.$dirty">Password must have at least
         {{ $v.password.$params.minLength.min }} letters</UIErrorMessage>
     </div>
     <div class="form-input">
       <label for="password-repeat">Repeat password:</label>
-      <input v-model="$v.repeatPassword.$model" type="password" id="password-repeat"
+      <input v-model="$v.repeatPassword.$model" :class="$v.repeatPassword.$error ? 'error-field' : ''" type="password" id="password-repeat"
         placeholder="Repeat your password...">
-        <UIErrorMessage v-if="!$v.repeatPassword.sameAsPassword">Passwords must be identical</UIErrorMessage>
+        <UIErrorMessage v-if="!$v.repeatPassword.sameAsPassword && $v.repeatPassword.$dirty">Passwords must be identical</UIErrorMessage>
     </div>
     <div class="agreement-block">
-      <input v-model="$v.agreement.$model" type="checkbox" id="agreement">
+      <input v-model="$v.agreement.$model" :class="$v.agreement.$error ? 'error-field' : ''" type="checkbox" id="agreement">
       <label for="agreement">I'm agree!</label>
+      <UIErrorMessage v-if="!$v.agreement.sameAs && $v.agreement.$dirty">Agreement is required</UIErrorMessage>
     </div>
     <div class="actions">
-      <button :disabled="$v.$dirty && $v.$invalid" class="submit-button button" type="submit">Sign Up</button>
+      <button :disabled="$v.$anyDirty && $v.$invalid" class="submit-button button" type="submit">Sign Up</button>
       <nuxt-link to="/auth">Already have an account?</nuxt-link>
     </div>
   </form>
 </template>
 
 <script>
-import {required, minLength, sameAs} from 'vuelidate/lib/validators'
+import {required, minLength, sameAs, email} from 'vuelidate/lib/validators'
 export default {
   name: 'Auth',
   data() {
@@ -49,8 +51,20 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
+    async onSubmit() {
+      const userInfo = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        isSignin: false
+      }
+      
       this.$v.$touch()
+      try {
+        await this.$store.dispatch('auth/authUser', userInfo)
+      } catch (e) {
+        console.log(e)
+      }
     }
   },
   validations: {
@@ -58,7 +72,8 @@ export default {
       required
     },
     email: {
-      required
+      required,
+      email
     },
     password: {
       required,
@@ -68,10 +83,11 @@ export default {
       sameAsPassword: sameAs('password')
     },
     agreement: {
-      required
+      sameAs: sameAs( () => true ) 
     }
   },
-  layout: 'auth'
+  layout: 'auth',
+  auth: false
 }
 </script>
 

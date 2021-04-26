@@ -169,8 +169,4 @@ form {
   font-size: 1.5rem;
   padding: 2rem;
 }
-
-.error-field {
-  border-color: $error-border;
-}
 </style>

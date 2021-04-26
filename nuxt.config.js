@@ -43,17 +43,22 @@ export default {
 	},
 
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios
-	// axios: {
-	// 	headers: {
-	// 		common: {
-	// 			'Content-Type': 'multipart/form-data'
-	// 		}
-	// 	}
-	// },
+	axios: {
+		// headers: {
+		// 	common: {
+		// 		'Content-Type': 'multipart/form-data'
+		// 	}
+		// }
+	},
+
+	router: {
+		middleware: ['auth']
+	},
 
 	env: {
 		firebaseStorageItemsUrl: process.env.FIREBASE_STORAGE_ITEMS,
-		firebaseApi: process.env.FIREBASE_API
+		firebaseApi: process.env.FIREBASE_API,
+		firebaseWebApi: process.env.FIREBASE_WEB_API,
 	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
