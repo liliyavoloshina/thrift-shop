@@ -52,13 +52,13 @@ export default {
 	},
 
 	router: {
-		middleware: ['auth']
+		middleware: ['init-auth', 'check-auth', ]
 	},
 
 	env: {
 		firebaseStorageItemsUrl: process.env.FIREBASE_STORAGE_ITEMS,
 		firebaseApi: process.env.FIREBASE_API,
-		firebaseWebApi: process.env.FIREBASE_WEB_API,
+		firebaseWebApi: process.env.FIREBASE_WEB_API
 	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
