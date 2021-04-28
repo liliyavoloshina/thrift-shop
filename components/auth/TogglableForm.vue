@@ -9,6 +9,12 @@
         placeholder="Enter your name or nickname...">
       <UIErrorMessage v-if="!$v.name.required && $v.name.$dirty">Name is required</UIErrorMessage>
     </div>
+    <div v-if="!signIn" class="form-input">
+      <label for="location">Location:</label>
+      <input v-model="$v.location.$model" :class="$v.location.$error ? 'error-field' : ''" type="text" id="location"
+        placeholder="Enter your location...">
+      <UIErrorMessage v-if="!$v.location.required && $v.location.$dirty">Location is required</UIErrorMessage>
+    </div>
 
     <div class="form-input">
       <label for="email">Email:</label>
@@ -63,6 +69,7 @@ export default {
     return {
       signIn: true,
       name: '',
+      location: '',
       email: '',
       password: '',
       repeatPassword: '',
@@ -90,6 +97,7 @@ export default {
         if (this.signIn === false) {
           userInfo = {
             name: this.name,
+            location: this.location,
             email: this.email,
             password: this.password,
             isSignin: false
@@ -117,6 +125,9 @@ export default {
     } else {
       return {
         name: {
+          required
+        },
+        location: {
           required
         },
         email: {

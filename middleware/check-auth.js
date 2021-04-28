@@ -1,5 +1,5 @@
 export default function({store, redirect}) {
-	if (!store.getters['auth/isAuthorized']) {
+	if (!store.getters['isAuthorized']) {
 		return redirect('/auth')
 	}
 }

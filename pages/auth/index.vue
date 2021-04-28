@@ -1,15 +1,14 @@
 <template>
-  <AuthTogglableForm @onSubmit="onSubmit"/>
+  <AuthTogglableForm @onSubmit="onSubmit" />
 </template>
 
 <script>
 export default {
-  name: 'Auth',
+  name: 'AuthPage',
   methods: {
     async onSubmit(userInfo) {
-
       try {
-        await this.$store.dispatch('auth/authUser', userInfo)
+        await this.$store.dispatch('authUser', userInfo)
         this.$router.push('/')
       } catch (e) {
         console.log(e)

@@ -6,6 +6,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'AuthLayout'
+}
+</script>
+
 <style lang="scss" scoped>
 .wrapper {
   height: 100vh;
@@ -13,7 +19,7 @@
   align-items: center;
   justify-content: center;
   background-color: $accent;
-  
+
   main {
     min-height: 200px;
     min-width: 300px;

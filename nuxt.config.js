@@ -36,7 +36,8 @@ export default {
 	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: [
 		// https://go.nuxtjs.dev/axios
-		'@nuxtjs/axios'
+		'@nuxtjs/axios',
+		'cookie-universal-nuxt'
 	],
 	styleResources: {
 		scss: '~assets/variables.scss'
@@ -52,7 +53,7 @@ export default {
 	},
 
 	router: {
-		middleware: ['init-auth', 'check-auth', ]
+		// middleware: ['init-auth', 'check-auth']
 	},
 
 	env: {

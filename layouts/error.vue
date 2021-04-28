@@ -5,11 +5,10 @@
 </template>
 
 <script>
-  export default {
-    
-  }
+export default {
+  name: 'ErrorLayout'
+}
 </script>
 
 <style lang="scss" scoped>
-
 </style>
