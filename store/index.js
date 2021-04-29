@@ -47,7 +47,7 @@ export const actions = {
 				const userInfo = await this.$axios.$get(
 					`${process.env.firebaseApi}users/${uuid}.json`
 				)
-				commit('setUser', {...userInfo})
+				commit('setUser', {...userInfo, id: uuid})
 				this.$cookies.set('uuid', uuid)
 			} catch (e) {
 				console.log(e)

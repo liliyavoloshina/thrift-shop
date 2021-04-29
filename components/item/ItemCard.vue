@@ -6,7 +6,7 @@
     <div class="info">
       <div class="detail">
         <div class="name">{{item.name}}</div>
-        <div class="owner">Contact: <nuxt-link :to="`/users/${item.owner}`">{{item.owner}}</nuxt-link>
+        <div class="owner">Contact: <nuxt-link :to="`/users/${item.ownerId}`">{{item.ownerName}}</nuxt-link>
         </div>
       </div>
       <UIButtonFavorite />

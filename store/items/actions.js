@@ -24,7 +24,8 @@ export default {
 			category: itemData.category,
 			gender: itemData.gender,
 			imageUrl: state.imageUrl,
-			owner: 'Liliya',
+			ownerId: itemData.ownerId,
+			ownerName: itemData.ownerName,
 			favorite: 0,
 			createdAt: itemData.createdAt
 		}

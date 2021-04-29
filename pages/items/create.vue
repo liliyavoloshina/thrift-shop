@@ -71,6 +71,7 @@
 
 <script>
 import {required, minLength, requiredIf} from 'vuelidate/lib/validators'
+import {mapState} from 'vuex'
 export default {
   data() {
     return {
@@ -80,14 +81,14 @@ export default {
       gender: 'unisex',
       imageFile: null,
       imageName: null,
-      owner: 'Liliya',
       showError: false
     }
   },
   computed: {
     imageLabel() {
       return this.imageName ? this.imageName : 'Choose image'
-    }
+    },
+    ...mapState({ownerId: state => state.user.id, ownerName: state => state.user.name})
   },
   methods: {
     async submitForm() {
@@ -109,9 +110,12 @@ export default {
           description: this.description,
           category: this.category,
           gender: this.gender,
+          ownerId: this.ownerId,
+          ownerName: this.ownerName,
           createdAt: new Date()
         }
         await this.$store.dispatch('items/postNewItem', itemData)
+        this.$router.push('/items')
       } catch (e) {
         console.log(e)
       }
@@ -138,7 +142,8 @@ export default {
         return this.imageFile == null
       })
     }
-  }
+  },
+  middleware: ['check-auth']
 }
 </script>
 

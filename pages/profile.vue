@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="user">
     <p> <span class="label">Name:</span> {{user.name}}</p>
     <p> <span class="label">Location:</span> {{user.location}}</p>
     <p><span class="label">Rating:</span> {{user.rating}}</p>
