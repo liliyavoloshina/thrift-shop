@@ -28,6 +28,7 @@ export default {
 <style lang="scss" scoped>
 .item {
   height: 100%;
+  width: 100%;
   border: $border-thin;
 }
 .image {

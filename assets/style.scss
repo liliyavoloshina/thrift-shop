@@ -267,3 +267,29 @@ a.nuxt-link-exact-active {
 .error-field {
   border-color: $error-border;
 }
+
+.list-enter-from {
+  opacity: 0;
+}
+
+.list-enter-active {
+  transition: all 0.5s ease-out;
+}
+
+.list-enter-to,
+.list-leave-from {
+  opacity: 1;
+}
+
+.list-leave-active {
+  transition: all 0.5s ease-in;
+  position: absolute;
+}
+
+.list-leave-to {
+  opacity: 0;
+}
+
+.list-move {
+  transition: transform 0.5s ease;
+}

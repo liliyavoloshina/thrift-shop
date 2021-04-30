@@ -23,7 +23,7 @@ export default {
 			items.sort(function(a, b) {
 				let c = new Date(a.createdAt)
 				let d = new Date(b.createdAt)
-				return c- d
+				return c - d
 			})
 			state.items = items
 		}
@@ -42,6 +42,24 @@ export default {
 				return c - d
 			})
 			state.items = items
+		}
+	},
+	filterItems(state, {category, gender}) {
+		if (category && gender) {
+			console.log('cat and gend')
+			state.items = state.items.filter(item => {
+				item.category == category && item.gender == gender
+			})
+		} else if (gender) {
+			console.log('gend')
+			state.items = state.items.filter(item => {
+				item.gender == 'female'
+			})
+		} else if (category) {
+			console.log('cat')
+			state.items = state.items.filter(item => {
+				item.category == category
+			})
 		}
 	}
 }
