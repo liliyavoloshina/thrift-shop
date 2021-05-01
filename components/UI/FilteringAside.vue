@@ -4,7 +4,8 @@
 
     <ul class="filter-ul">
       <li>Filter by Category:
-        <select v-model="filter.category" @change="changed" class="sorting-select" name="select">
+        <select @change="filterItemsCategory($event.target.value)" class="sorting-select" name="select">
+          <option value="all">All</option>
           <option value="clothes">Clothes</option>
           <option value="shoes">Shoes</option>
           <option value="accessories">Accessories</option>
@@ -12,19 +13,28 @@
       </li>
       <li><label>Filter by Gender:</label>
         <div class="genders">
-          <div class="radio-gender">
-            <input v-model="filter.gender" @change="changed" id="male" value="male" name="gender" type="radio">
+          <div v-for="gender in genders" :key="gender.value" class="radio-gender">
+            <input @change="filterItemsGender($event.target.value)" :id="gender.value" :value="gender.value" :checked="whatChecked == gender.value" name="gender" type="radio">
+            <label :for="gender.value">{{gender.value}}</label>
+          </div>
+          <!-- <div class="radio-gender">
+            <input @change="filterItemsGender($event.target.value)" id="male" value="male" name="gender" type="radio">
             <label for="male">Male</label>
           </div>
           <div class="radio-gender">
-            <input v-model="filter.gender" @change="changed" id="female" value="female" name="gender" type="radio">
+            <input @change="filterItemsGender($event.target.value)" id="female" value="female" name="gender"
+              type="radio">
             <label for="female">Female</label>
           </div>
           <div class="radio-gender">
-            <input v-model="filter.gender" @change="changed" id="unisex" value="unisex" name="gender" type="radio" checked>
+            <input @change="filterItemsGender($event.target.value)" id="unisex" value="unisex" name="gender"
+              type="radio">
             <label for="unisex">Unisex</label>
-          </div>
+          </div> -->
         </div>
+      </li>
+      <li>
+        <button @click="resetFilters" class="reset-button button">Reset Filters</button>
       </li>
     </ul>
   </aside>
@@ -34,15 +44,27 @@
 export default {
   data() {
     return {
-      filter: {
-        gender: null,
-        category: null
-      }
+      genders: [
+        {value: 'male', checked: false},
+        {value: 'female', checked: false},
+        {value: 'unisex',checked: false}
+      ]
+    }
+  },
+  computed: {
+    whatChecked() {
+      return this.$store.state.items.filters.gender
     }
   },
   methods: {
-    changed() {
-      this.$emit('changed', this.filter)
+    filterItemsGender(value) {
+      this.$store.dispatch('items/filterItemsGender', value)
+    },
+    filterItemsCategory(value) {
+      this.$store.dispatch('items/filterItemsCategory', value)
+    },
+    resetFilters() {
+      this.$store.dispatch('items/resetFilters')
     }
   }
 }
@@ -84,6 +106,11 @@ aside {
     background-color: white;
     border-bottom: $border-thin;
   }
+}
+
+.reset-button {
+  width: 100%;
+  height: 2rem;
 }
 
 .genders {

@@ -4,10 +4,10 @@
 
     <main>
       <div class="sortby-area">
-        <UISortingSelect @change="sortBy($event)" />
+        <UISortingSelect />
       </div>
       <transition-group name="list" class="main">
-        <div v-for="item in items" :key="item.id" class="item">
+        <div v-for="item in filteredItems" :key="item.id" class="item">
           <ItemCard :item="item" />
         </div>
       </transition-group>
@@ -28,12 +28,12 @@ export default {
     await store.dispatch('items/getItems')
   },
   computed: {
-    ...mapState('items', ['items']),
+    ...mapState('items', ['items', 'filteredItems']),
   },
   methods: {
-    sortBy(sort) {
-      this.$store.commit('items/sortItems', sort)
-    },
+    // sortBy(sort) {
+    //   this.$store.commit('items/sortItems', sort)
+    // },
     filterBy(filter) {
       console.log(filter)
       this.$store.commit('items/filterItems', filter)

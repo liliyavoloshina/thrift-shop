@@ -47,5 +47,23 @@ export default {
       items.push({...res[item], id: item})
     }
     commit('setItems', items)
+    commit('setFilteredItems', items)
+	},
+	async sortItems({commit}, value) {
+		await commit('setSortingOrder', value)
+		await commit('sortItems')
+	},
+	async filterItemsGender({commit}, value) {
+		await commit('setFilterGender', value)
+		await commit('filterItems')
+	},
+	async filterItemsCategory({commit}, value) {
+		await commit('setFilterCategory', value)
+		await commit('filterItems')
+	},
+	async resetFilters({commit}) {
+		await commit('setFilterGender', '')
+		await commit('setFilterCategory', 'all')
+		await commit('filterItems')
 	}
 }

@@ -1,4 +1,10 @@
-export default  () => ({
+export default () => ({
 	items: [],
+	filteredItems: [],
+	filters: {
+		order: 'newest',
+		category: 'all',
+		gender: ''
+	},
 	imageUrl: null
 })
