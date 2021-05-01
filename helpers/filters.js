@@ -34,7 +34,6 @@ export function filterItems(filters, items) {
 	let filteredItems = [...items]
 
 	if (filters.gender != '') {
-		console.log(filters.gender)
 		const filtered = filteredItems.filter(
 			item => item.gender == filters.gender
 		)

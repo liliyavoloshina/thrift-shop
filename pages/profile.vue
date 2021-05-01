@@ -40,7 +40,7 @@ p {
   }
 }
 .button-logout {
-  background-color: $error-message;
+  background-color: $accent;
   color: white;
   width: 200px;
   height: 50px;

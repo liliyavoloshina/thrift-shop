@@ -3,7 +3,8 @@
     <nuxt-link to="/items/create" class="create-button button">Add Your Own!</nuxt-link>
 
     <ul class="filter-ul">
-      <li>Filter by Category:
+      <li>
+        <div class="filters-label">Filter by Category:</div> 
         <select @change="filterItemsCategory($event.target.value)" class="sorting-select" name="select">
           <option value="all">All</option>
           <option value="clothes">Clothes</option>
@@ -11,26 +12,14 @@
           <option value="accessories">Accessories</option>
         </select>
       </li>
-      <li><label>Filter by Gender:</label>
+      <li>
+        <div class="filters-label">Filter by Gender:</div>
         <div class="genders">
           <div v-for="gender in genders" :key="gender.value" class="radio-gender">
-            <input @change="filterItemsGender($event.target.value)" :id="gender.value" :value="gender.value" :checked="whatChecked == gender.value" name="gender" type="radio">
+            <input @change="filterItemsGender($event.target.value)" :id="gender.value" :value="gender.value"
+              :checked="whatChecked == gender.value" name="gender" type="radio">
             <label :for="gender.value">{{gender.value}}</label>
           </div>
-          <!-- <div class="radio-gender">
-            <input @change="filterItemsGender($event.target.value)" id="male" value="male" name="gender" type="radio">
-            <label for="male">Male</label>
-          </div>
-          <div class="radio-gender">
-            <input @change="filterItemsGender($event.target.value)" id="female" value="female" name="gender"
-              type="radio">
-            <label for="female">Female</label>
-          </div>
-          <div class="radio-gender">
-            <input @change="filterItemsGender($event.target.value)" id="unisex" value="unisex" name="gender"
-              type="radio">
-            <label for="unisex">Unisex</label>
-          </div> -->
         </div>
       </li>
       <li>
@@ -47,7 +36,7 @@ export default {
       genders: [
         {value: 'male', checked: false},
         {value: 'female', checked: false},
-        {value: 'unisex',checked: false}
+        {value: 'unisex', checked: false}
       ]
     }
   },
@@ -73,18 +62,20 @@ export default {
 <style lang="scss" scoped>
 aside {
   grid-column: 1/2;
+  height: fit-content;
   border: $border-thin;
+    border-bottom: none;
   background-color: white;
 
   .create-button {
     display: block;
     width: 100%;
-    height: auto;
+    height: 3rem;
     text-align: center;
     color: white;
     background-color: $accent;
-    font-size: 1.8rem;
-    line-height: 1.6;
+    font-size: 1.2em;
+    line-height: 2.3;
     transition: background-color 0.2s ease-out;
 
     &:hover {
@@ -98,13 +89,15 @@ aside {
 }
 
 .filter-ul {
-  margin-top: 1rem;
   li {
     display: block;
     height: auto;
     padding: 0.5rem;
     background-color: white;
     border-bottom: $border-thin;
+    .filters-label {
+      padding-bottom: 1rem;
+    }
   }
 }
 
@@ -116,6 +109,5 @@ aside {
 .genders {
   display: flex;
   justify-content: space-between;
-  margin-top: 1rem;
 }
 </style>

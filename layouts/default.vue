@@ -2,7 +2,7 @@
   <div class="wrapper">
     <UITheNav />
     <main>
-      <Nuxt />
+      <Nuxt keep-alive />
     </main>
     <footer></footer>
   </div>

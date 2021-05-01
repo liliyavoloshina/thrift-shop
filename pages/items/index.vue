@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <UIFilteringAside @changed="filterBy" />
+    <UIFilteringAside />
 
     <main>
       <div class="sortby-area">
@@ -11,6 +11,7 @@
           <ItemCard :item="item" />
         </div>
       </transition-group>
+      <UIEmptyMessage v-if="filteredItems.length < 1">Unfortunatly, there are no items by such filter...</UIEmptyMessage>
     </main>
   </section>
 </template>
@@ -19,25 +20,11 @@
 import {mapState} from 'vuex'
 export default {
   name: 'Items',
-  // data() {
-  //   return {
-  //     filtering: ''
-  //   }
-  // },
   async fetch({store}) {
     await store.dispatch('items/getItems')
   },
   computed: {
     ...mapState('items', ['items', 'filteredItems']),
-  },
-  methods: {
-    // sortBy(sort) {
-    //   this.$store.commit('items/sortItems', sort)
-    // },
-    filterBy(filter) {
-      console.log(filter)
-      this.$store.commit('items/filterItems', filter)
-    }
   }
 }
 </script>
@@ -57,6 +44,7 @@ section {
 
 main {
   grid-column: 2/4;
+  grid-auto-rows: min-content;
   @media (max-width: 480px) {
     grid-column: 1/3;
   }
