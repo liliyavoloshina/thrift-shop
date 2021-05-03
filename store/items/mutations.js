@@ -31,5 +31,8 @@ export default {
 		const items = [...state.items]
 		state.filteredItems = items
 		state.filteredItems = Filters.filterItems(state.filters, items)
+	},
+	setUserItems(state, items) {
+		state.userItems = items
 	}
 }

@@ -11,7 +11,7 @@
           <ItemCard :item="item" />
         </div>
       </transition-group>
-      <UIEmptyMessage v-if="filteredItems.length < 1">Unfortunatly, there are no items by such filter...</UIEmptyMessage>
+      <UIEmptyMessage v-if="filteredItems.length < 1">Unfortunately, there are no items by such filter...</UIEmptyMessage>
     </main>
   </section>
 </template>
@@ -52,7 +52,7 @@ main {
 
 .main {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   grid-auto-rows: 350px;
   gap: 1rem;
 }

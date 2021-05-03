@@ -6,5 +6,6 @@ export default () => ({
 		category: 'all',
 		gender: ''
 	},
-	imageUrl: null
+	imageUrl: null,
+	userItems: []
 })

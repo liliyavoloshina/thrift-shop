@@ -32,13 +32,22 @@ export default {
 
 		try {
 			const res = await this.$axios.$post(
-				`${process.env.firebaseApi}items.json`,
+				`${process.env.firebaseApi}users/${itemData.ownerId}/items.json`,
 				dataToSend
 			)
 			commit('addNewItem', {...dataToSend, id: res.name})
 		} catch (e) {
 			console.log(e)
 		}
+		// try {
+		// 	const res = await this.$axios.$post(
+		// 		`${process.env.firebaseApi}items.json`,
+		// 		dataToSend
+		// 	)
+		// 	commit('addNewItem', {...dataToSend, id: res.name})
+		// } catch (e) {
+		// 	console.log(e)
+		// }
 	},
 	async getItems({commit}) {
 		const res = await this.$axios.$get(`${process.env.firebaseApi}items.json`)
@@ -65,5 +74,13 @@ export default {
 		await commit('setFilterGender', '')
 		await commit('setFilterCategory', 'all')
 		await commit('filterItems')
+	},
+	async getUserItems({commit}, uuid) {
+		const res = await this.$axios.$get(`${process.env.firebaseApi}users/${uuid}/items.json`)
+    const items = []
+    for (let item in res) {
+      items.push({...res[item], id: item})
+    }
+		commit('setUserItems', items)
 	}
 }
