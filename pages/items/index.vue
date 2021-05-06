@@ -8,10 +8,11 @@
       </div>
       <transition-group name="list" class="main">
         <div v-for="item in filteredItems" :key="item.id" class="item">
-          <ItemCard :item="item" />
+          <ItemCard @liked="addToFavorite" :item="item" :isFav="isFav(item.id)" />
         </div>
       </transition-group>
-      <UIEmptyMessage v-if="filteredItems.length < 1">Unfortunately, there are no items by such filter...</UIEmptyMessage>
+      <UIEmptyMessage v-if="filteredItems.length < 1">Unfortunately, there are no items by such filter...
+      </UIEmptyMessage>
     </main>
   </section>
 </template>
@@ -22,9 +23,26 @@ export default {
   name: 'Items',
   async fetch({store}) {
     await store.dispatch('items/getItems')
+    
+  },
+  async created() {
+    await this.$store.dispatch('items/getFavoriteItems')
   },
   computed: {
     ...mapState('items', ['items', 'filteredItems']),
+    ...mapState(['user']),
+    
+  },
+  methods: {
+    addToFavorite(item) {
+      this.$store.dispatch('items/addToFavorite', {
+        item: item,
+        uuid: this.user.id
+      })
+    },
+    isFav(id) {
+      return this.$store.getters['items/isFavorite'](id)
+    }
   }
 }
 </script>

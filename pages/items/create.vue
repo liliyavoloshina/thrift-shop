@@ -88,7 +88,10 @@ export default {
     imageLabel() {
       return this.imageName ? this.imageName : 'Choose image'
     },
-    ...mapState({ownerId: state => state.user.id, ownerName: state => state.user.name})
+    ...mapState({
+      ownerId: state => state.user.id,
+      ownerName: state => state.user.name
+    })
   },
   methods: {
     async submitForm() {
@@ -115,6 +118,14 @@ export default {
           createdAt: new Date()
         }
         await this.$store.dispatch('items/postNewItem', itemData)
+        this.$v.$reset()
+        this.name = ''
+        this.description = ''
+        this.category = ''
+        this.gender = 'unisex'
+        this.imageFile = null
+        this.imageName = null
+        this.showError = false
         this.$router.push('/items')
       } catch (e) {
         console.log(e)

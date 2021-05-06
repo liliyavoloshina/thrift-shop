@@ -22,9 +22,7 @@ export const actions = {
 			const newUserInfo = {
 				name: authInfo.name,
 				email: authInfo.email,
-				location: authInfo.location,
-				rating: 0,
-				reviews: 0
+				location: authInfo.location
 			}
 
 			try {
@@ -48,7 +46,9 @@ export const actions = {
 					`${process.env.firebaseApi}users/${uuid}.json`
 				)
 				commit('setUser', {...userInfo, id: uuid})
-				this.$cookies.set('uuid', uuid)
+				this.$cookies.set('uuid', uuid, {
+					maxAge: 3600
+				})
 			} catch (e) {
 				console.log(e)
 			}

@@ -8,8 +8,11 @@
         <li>
           <nuxt-link to="/items">Search!</nuxt-link>
         </li>
-        <li>
-          <nuxt-link to="/profile">Profile</nuxt-link>
+        <li v-if="user.id">
+          <nuxt-link :to="`/user/${user.id}`">Profile</nuxt-link>
+        </li>
+        <li v-else>
+          <nuxt-link :to="`/auth`">Profile</nuxt-link>
         </li>
         <li>
           <nuxt-link to="/favorite">Favorite</nuxt-link>
@@ -20,8 +23,12 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
-  name: 'AppNav'
+  name: 'AppNav',
+  computed: {
+    ...mapState(['user'])
+  }
 }
 </script>
 

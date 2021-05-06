@@ -1,15 +1,26 @@
 <template>
   <div>
-    <h2>Fav</h2>
+    <h1>YOUR FAVORITE ITEMS</h1>
+    <ItemTray :items="favoriteItems" />
   </div>
 </template>
 
 <script>
-  export default {
-    middleware: ['check-auth']
-  }
+import {mapState} from 'vuex'
+export default {
+  computed: {
+    ...mapState(['user']),
+    ...mapState('items', ['favoriteItems']),
+  },
+  created() {
+    this.$store.dispatch('items/getFavoriteItems', this.user.id)
+  },
+  middleware: ['check-auth']
+}
 </script>
 
 <style lang="scss" scoped>
-
+h1 {
+  margin-bottom: 1rem;
+}
 </style>

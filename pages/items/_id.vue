@@ -1,7 +1,6 @@
 <template>
   <div class="item container">
-    {{item}}
-    <!-- <div class="image">
+    <div class="image">
       <img :src="item.imageUrl" alt="Item Image">
     </div>
     <div class="info">
@@ -23,33 +22,25 @@
         <UIButtonFavoriteBig />
         <UIButtonContact :owner="item.owner" />
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
 export default {
   name: 'Item',
 
-  computed: {
-    ...mapGetters('items', ['getItemById']),
-    item() {
-      return this.getItemById(this.$route.params.id)
+  async asyncData({params, $axios}) {
+    const id = params.id
+    try {
+      const item = await $axios.$get(
+        `${process.env.firebaseApi}items/${id}.json`
+      )
+      return {item}
+    } catch (e) {
+      error(e)
     }
   }
-
-  // async asyncData({params, $axios}) {
-  //   const id = params.id
-  //   try {
-  //     const item = await $axios.$get(
-  //       `${process.env.firebaseApi}users/items/${id}.json`
-  //     )
-  //     return {item}
-  //   } catch (e) {
-  //     error(e)
-  //   }
-  // }
 }
 </script>
 
@@ -62,6 +53,7 @@ export default {
 
   .image {
     border: $border-thin;
+    height: 20rem;
   }
 
   .info {

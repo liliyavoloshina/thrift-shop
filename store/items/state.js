@@ -7,5 +7,5 @@ export default () => ({
 		gender: ''
 	},
 	imageUrl: null,
-	userItems: []
+	favoriteItems: []
 })

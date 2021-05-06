@@ -34,5 +34,11 @@ export default {
 	},
 	setUserItems(state, items) {
 		state.userItems = items
+	},
+	setFavoriteItems(state, items) {
+		state.favoriteItems = items
+	},
+	addToFavorite(state, item) {
+		state.favoriteItems.push(item)
 	}
 }

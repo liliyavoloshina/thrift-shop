@@ -9,7 +9,7 @@ export default {
     async onSubmit(userInfo) {
       try {
         await this.$store.dispatch('authUser', userInfo)
-        this.$router.go(-1)
+        this.$router.push('/')
       } catch (e) {
         console.log(e)
       }

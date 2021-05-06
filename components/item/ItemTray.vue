@@ -1,6 +1,6 @@
 <template>
   <ul class="item-tray">
-    <li v-for="item in items" :key="item.name" class="item">
+    <li v-for="item in items" :key="item.id" class="item">
       <nuxt-link :to="`/items/${item.id}`">
         <img :src="item.imageUrl" :alt="item.name">
         <div class="text">{{item.name}}</div>
@@ -14,7 +14,8 @@ export default {
   name: 'ItemTray',
   props: {
     items: {
-      type: Array
+      required: true
+      // type: Array
     }
   }
 }
