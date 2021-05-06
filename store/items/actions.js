@@ -26,7 +26,6 @@ export default {
 			imageUrl: state.imageUrl,
 			ownerId: itemData.ownerId,
 			ownerName: itemData.ownerName,
-			favorite: 0,
 			createdAt: itemData.createdAt
 		}
 		try {
@@ -74,9 +73,13 @@ export default {
 	async getFavoriteItems({commit}, uuid) {
 		try {
 			const res = await this.$axios.$get(
-				`${process.env.firebaseApi}users/${uuid}/favorite.json`)
-				console.log(res)
-			commit('setFavoriteItems', res)
+				`${process.env.firebaseApi}users/${uuid}/favorite.json`
+			)
+			const items = []
+			for (let item in res) {
+				items.push({...res[item]})
+			}
+			commit('setFavoriteItems', items)
 		} catch (e) {
 			console.log(e)
 		}

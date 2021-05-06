@@ -1,6 +1,5 @@
 <template>
   <div class="item">
-    {{isFav}}
     <nuxt-link :to="`/items/${item.id}`">
       <div class="image"><img :src="item.imageUrl" alt="Item image"></div>
     </nuxt-link>
@@ -10,7 +9,7 @@
         <div class="owner">Contact: <nuxt-link :to="`/user/${item.ownerId}`">{{item.ownerName}}</nuxt-link>
         </div>
       </div>
-      <button @click="$emit('liked', item)" class="icon-button">
+      <button @click="$emit('liked', item)" :class="[isFav ? 'active' : '', 'icon-button']" :disabled="isFav">
         <svg class="heart" viewBox="0 0 32 29.6">
           <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
 	c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
@@ -26,9 +25,11 @@ export default {
   props: {
     item: {
       type: Object
-    },
-    isFav: {
-      type: Boolean
+    }
+  },
+  computed: {
+    isFav() {
+      return this.$store.getters['items/isFavorite'](this.item.id)
     }
   }
 }
@@ -78,6 +79,10 @@ export default {
   &.active .heart,
   &:hover .heart {
     fill: $accent;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
   }
 }
 

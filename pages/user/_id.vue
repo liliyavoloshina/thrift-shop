@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user" class="profile">
+  <div v-if="user" class="profile container">
     <UserInfo :user="userInfo" :owner="owner" />
     <UserItems :items="userItems" />
   </div>

@@ -1,5 +1,9 @@
 export default {
 	isFavorite: state => id => {
-		return state.favoriteItems.find(item => item.id === id)
+		if (state.favoriteItems.find(item => item.id === id)) {
+			return true
+		} else {
+			return false
+		}
 	}
 }

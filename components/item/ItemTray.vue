@@ -1,12 +1,12 @@
 <template>
-  <ul class="item-tray">
-    <li v-for="item in items" :key="item.id" class="item">
+  <div class="item-tray">
+    <div v-for="item in items" :key="item.id" class="item">
       <nuxt-link :to="`/items/${item.id}`">
         <img :src="item.imageUrl" :alt="item.name">
         <div class="text">{{item.name}}</div>
       </nuxt-link>
-    </li>
-  </ul>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -14,8 +14,8 @@ export default {
   name: 'ItemTray',
   props: {
     items: {
-      required: true
-      // type: Array
+      required: true,
+      type: Array
     }
   }
 }
@@ -25,7 +25,6 @@ export default {
 .item-tray {
   display: flex;
   overflow-x: auto;
-  -webkit-overflow-scrolling: auto;
   &::-webkit-scrollbar {
     height: 1.5rem;
   }
@@ -40,7 +39,9 @@ export default {
 }
 
 .item {
-  width: 250px;
+  flex-basis: 15rem;
+  flex-grow: 0;
+  flex-shrink: 0;
   margin-right: 1rem;
   position: relative;
   .text {

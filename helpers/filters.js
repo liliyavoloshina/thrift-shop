@@ -13,18 +13,6 @@ export function sortItems(order, items) {
 			let d = new Date(b.createdAt)
 			return c - d
 		})
-	} else if (order === 'popular') {
-		orderedItems.sort(function(a, b) {
-			let c = a.favorite
-			let d = b.favorite
-			return d - c
-		})
-	} else if (order === 'unpopular') {
-		orderedItems.sort(function(a, b) {
-			let c = a.favorite
-			let d = b.favorite
-			return c - d
-		})
 	}
 
 	return orderedItems

@@ -6,9 +6,9 @@
       <div class="sortby-area">
         <UISortingSelect />
       </div>
-      <transition-group name="list" class="main">
+      <transition-group v-if="filteredItems" name="list" class="main">
         <div v-for="item in filteredItems" :key="item.id" class="item">
-          <ItemCard @liked="addToFavorite" :item="item" :isFav="isFav(item.id)" />
+          <ItemCard @liked="addToFavorite" :item="item" />
         </div>
       </transition-group>
       <UIEmptyMessage v-if="filteredItems.length < 1">Unfortunately, there are no items by such filter...
@@ -23,15 +23,13 @@ export default {
   name: 'Items',
   async fetch({store}) {
     await store.dispatch('items/getItems')
-    
   },
   async created() {
-    await this.$store.dispatch('items/getFavoriteItems')
+    await this.$store.dispatch('items/getFavoriteItems', this.user.id)
   },
   computed: {
     ...mapState('items', ['items', 'filteredItems']),
-    ...mapState(['user']),
-    
+    ...mapState(['user'])
   },
   methods: {
     addToFavorite(item) {
@@ -39,9 +37,6 @@ export default {
         item: item,
         uuid: this.user.id
       })
-    },
-    isFav(id) {
-      return this.$store.getters['items/isFavorite'](id)
     }
   }
 }

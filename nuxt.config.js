@@ -24,7 +24,10 @@ export default {
 	css: ['~/assets/style'],
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: ['~plugins/vuelidate.js', ],
+	plugins: [
+		'~plugins/vuelidate.js',
+		'~plugins/vue-content-placeholder.client.js'
+	],
 	// '~plugins/moment.client.js'
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
@@ -61,6 +64,8 @@ export default {
 		firebaseApi: process.env.FIREBASE_API,
 		firebaseWebApi: process.env.FIREBASE_WEB_API
 	},
+
+	loading: '~/components/UI/Loading.vue',
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {}

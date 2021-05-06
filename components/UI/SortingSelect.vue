@@ -10,7 +10,7 @@ export default {
   name: 'SortingSelect',
   data() {
     return {
-      selectOptions: ['newest', 'oldest', 'popular', 'unpopular']
+      selectOptions: ['newest', 'oldest']
     }
   },
   methods: {

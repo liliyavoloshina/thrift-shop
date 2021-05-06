@@ -7,15 +7,27 @@
     <div class="home-items">
       <div class="home-items-area">
         <h2>New Items</h2>
-        <ItemTray :items="newItems" />
+        <template v-if="$fetchState.pending">
+          <content-placeholders v-for="p in 5" :key="p" rounded>
+            <content-placeholders-img />
+            <content-placeholders-text :lines="3" />
+          </content-placeholders>
+        </template>
+        <template v-else>
+          <ItemTray :items="newItems" />
+        </template>
       </div>
       <div class="home-items-area">
         <h2>Exclusive Items</h2>
-        <ItemTray :items="exclusiveItems" />
-      </div>
-      <div class="home-items-area">
-        <h2>Popular Items</h2>
-        <ItemTray :items="popularItems" />
+        <template v-if="$fetchState.pending">
+          <content-placeholders v-for="p in 5" :key="p" rounded>
+            <content-placeholders-img />
+            <content-placeholders-text :lines="3" />
+          </content-placeholders>
+        </template>
+        <template v-else>
+          <ItemTray :items="exclusiveItems" />
+        </template>
       </div>
     </div>
 
@@ -26,103 +38,26 @@
 export default {
   data() {
     return {
-      newItems: [
-        {
-          name: 'Super Puper',
-          image:
-            'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2xvdGhlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-          price: 24
-        },
-        {
-          name: 'Super Puper Long',
-          image:
-            'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2xvdGhlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-          price: 24
-        },
-        {
-          name: 'Puper Super',
-          image:
-            'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2xvdGhlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-          price: 120
-        },
-        {
-          name: 'Long Super Puper Name',
-          image:
-            'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y2xvdGhlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-          price: 1200
-        },
-        {
-          name: 'Long asd',
-          image:
-            'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y2xvdGhlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-          price: 1200
-        }
-      ],
-      exclusiveItems: [
-        {
-          name: 'Super Puper',
-          image:
-            'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2xvdGhlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-          price: 24
-        },
-        {
-          name: 'Super Puper Long',
-          image:
-            'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2xvdGhlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-          price: 24
-        },
-        {
-          name: 'Puper Super',
-          image:
-            'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2xvdGhlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-          price: 120
-        },
-        {
-          name: 'Long Super Puper Name',
-          image:
-            'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y2xvdGhlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-          price: 1200
-        },
-        {
-          name: 'Long asd',
-          image:
-            'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y2xvdGhlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-          price: 1200
-        }
-      ],
-      popularItems: [
-        {
-          name: 'Super Puper',
-          image:
-            'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2xvdGhlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-          price: 24
-        },
-        {
-          name: 'Super Puper Long',
-          image:
-            'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2xvdGhlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-          price: 24
-        },
-        {
-          name: 'Puper Super',
-          image:
-            'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2xvdGhlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-          price: 120
-        },
-        {
-          name: 'Long Super Puper Name',
-          image:
-            'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y2xvdGhlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-          price: 1200
-        },
-        {
-          name: 'Long asd',
-          image:
-            'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y2xvdGhlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-          price: 1200
-        }
-      ]
+      newItems: [],
+      exclusiveItems: []
     }
+  },
+  async fetch() {
+    const res = await this.$axios.$get(`${process.env.firebaseApi}items.json`)
+    const items = []
+    for (let item in res) {
+      items.push({...res[item], id: item})
+    }
+    this.newItems = items
+      .sort(function (a, b) {
+        let c = new Date(a.createdAt)
+        let d = new Date(b.createdAt)
+        return d - c
+      })
+      .slice(0, 10)
+    this.exclusiveItems = items
+      .filter(i => i.ownerId == '-MZNSKYTx1fW2w3kJhJK')
+      .slice(0, 10)
   }
 }
 </script>
@@ -132,8 +67,10 @@ export default {
 }
 .home-items {
   margin-top: 2rem;
-  .home-items-area:not(:last-child) {
-    margin-bottom: 1rem;
+  .home-items-area {
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
   }
 
   h2 {

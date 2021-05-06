@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="container">
     <h1>YOUR FAVORITE ITEMS</h1>
+    <UIEmptyMessage v-if="favoriteItems.length < 1">You have no favorite items yet...</UIEmptyMessage>
     <ItemTray :items="favoriteItems" />
   </div>
 </template>
