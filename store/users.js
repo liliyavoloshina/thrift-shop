@@ -1,5 +1,5 @@
 export const state = () => ({
-	items: [],
+	userItems: [],
 	favoriteItems: []
 })
 
@@ -31,7 +31,7 @@ export const actions = {
 	},
 	async addToFavorite({commit}, {item, uuid}) {
 		try {
-			const res = await this.$axios.$post(
+			await this.$axios.$post(
 				`${process.env.firebaseApi}users/${uuid}/favorite.json`,
 				item
 			)
@@ -41,26 +41,41 @@ export const actions = {
 		}
 	},
 	async getUserItems({commit}, uuid) {
-		const user = await this.$axios.$get(
-			`${process.env.firebaseApi}users/${uuid}.json`
-		)
-		this.userInfo = {
-			email: user.email,
-			name: user.name,
-			location: user.location
+		try {
+			let params = {
+				orderBy: "ownerId",
+				equalTo: `${uuid}`
+			}
+			const res = await this.$axios.$get(
+				`${process.env.firebaseApi}items.json`, {
+					params: {
+						orderBy: 'ownerId'
+					}
+			}
+				// `${process.env.firebaseApi}items.json`, {params: params}
+			)
+			console.log(res)
+			const items = []
+			for (let item in res) {
+				items.push({...res[item], id: item})
+			}
+			commit('setUserItems', items)
+		} catch (e) {
+			console.log(e)
 		}
-		const userItems = []
-		for (let item in user.items) {
-			userItems.push({...user.items[item]})
-		}
-		console.log(userItems)
-		this.userItems = userItems
 	}
 }
 
 export const getters = {
 	isFavorite: state => id => {
 		if (state.favoriteItems.find(item => item.id === id)) {
+			return true
+		} else {
+			return false
+		}
+	},
+	isOwner: state => id => {
+		if (state.userItems.find(item => item.id === id)) {
 			return true
 		} else {
 			return false

@@ -7,51 +7,51 @@
       <label for="name">Name:</label>
       <input v-model="$v.name.$model" :class="$v.name.$error ? 'error-field' : ''" type="text" id="name"
         placeholder="Enter your name or nickname...">
-      <UIErrorMessage v-if="!$v.name.required && $v.name.$dirty">Name is required</UIErrorMessage>
+      <div v-if="!$v.name.required && $v.name.$dirty" class="error">Name is required</div>
     </div>
     <div v-if="!signIn" class="form-input">
       <label for="location">Location:</label>
       <input v-model="$v.location.$model" :class="$v.location.$error ? 'error-field' : ''" type="text" id="location"
         placeholder="Enter your location...">
-      <UIErrorMessage v-if="!$v.location.required && $v.location.$dirty">Location is required</UIErrorMessage>
+      <div v-if="!$v.location.required && $v.location.$dirty" class="error">Location is required</div>
     </div>
 
     <div class="form-input">
       <label for="email">Email:</label>
       <input v-model="$v.email.$model" :class="$v.email.$error ? 'error-field' : ''" type="text" id="email"
         placeholder="Enter your email...">
-      <UIErrorMessage v-if="!$v.email.required && $v.email.$dirty">Email is required</UIErrorMessage>
-      <UIErrorMessage v-if="!$v.email.email && $v.email.$dirty">Email must be valid</UIErrorMessage>
+      <div v-if="!$v.email.required && $v.email.$dirty">Email is required</div>
+      <div v-if="!$v.email.email && $v.email.$dirty" class="error">Email must be valid</div>
     </div>
     <div v-if="signIn" class="form-input">
       <label for="password">Password:</label>
       <input v-model="$v.password.$model" :class="$v.password.$error ? 'error-field' : ''" type="password" id="password"
         placeholder="Enter your password...">
-      <UIErrorMessage v-if="!$v.password.required && $v.password.$dirty">Password is required</UIErrorMessage>
+      <div v-if="!$v.password.required && $v.password.$dirty" class="error">Password is required</div>
     </div>
 
     <div v-if="!signIn" class="form-input">
       <label for="password">Password:</label>
       <input v-model="$v.password.$model" :class="$v.password.$error ? 'error-field' : ''" type="password" id="password"
         placeholder="Enter password...">
-      <UIErrorMessage v-if="!$v.password.required && $v.password.$dirty">Password is required</UIErrorMessage>
-      <UIErrorMessage v-if="!$v.password.minLength && $v.password.$dirty">Password must have at least
-        {{ $v.password.$params.minLength.min }} letters</UIErrorMessage>
+      <div v-if="!$v.password.required && $v.password.$dirty" class="error">Password is required</div>
+      <div v-if="!$v.password.minLength && $v.password.$dirty" class="error">Password must have at least
+        {{ $v.password.$params.minLength.min }} letters</div>
     </div>
 
     <div v-if="!signIn" class="form-input">
       <label for="password-repeat">Repeat password:</label>
       <input v-model="$v.repeatPassword.$model" :class="$v.repeatPassword.$error ? 'error-field' : ''" type="password"
         id="password-repeat" placeholder="Repeat your password...">
-      <UIErrorMessage v-if="!$v.repeatPassword.sameAsPassword && $v.repeatPassword.$dirty">Passwords must be identical
-      </UIErrorMessage>
+      <div v-if="!$v.repeatPassword.sameAsPassword && $v.repeatPassword.$dirty" class="error">Passwords must be identical
+      </div>
     </div>
 
     <div v-if="!signIn" class="agreement-block">
       <input v-model="$v.agreement.$model" :class="$v.agreement.$error ? 'error-field' : ''" type="checkbox"
         id="agreement">
       <label for="agreement">I'm agree!</label>
-      <UIErrorMessage v-if="!$v.agreement.sameAs && $v.agreement.$dirty">Agreement is required</UIErrorMessage>
+      <div v-if="!$v.agreement.sameAs && $v.agreement.$dirty" class="error">Agreement is required</div>
     </div>
 
     <div class="actions">
@@ -186,5 +186,12 @@ h1 {
       cursor: pointer;
     }
   }
+}
+
+.error {
+  color: $error-message;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
 }
 </style>

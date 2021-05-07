@@ -31,11 +31,11 @@ body::-webkit-scrollbar {
 
 a {
 	text-decoration: none;
-		color: $black;
+	color: $black;
 
-		&:hover {
-			color: $accent;
-		}
+	&:hover {
+		color: $accent;
+	}
 }
 
 ul {
@@ -60,6 +60,7 @@ button:focus {
 .submit-button {
 	align-items: center;
 	color: white;
+	width: 100%;
 	background-color: $black;
 	font-size: 1.8rem;
 	line-height: 1.5;
@@ -72,6 +73,17 @@ button:focus {
 	&:disabled {
 		background-color: $grey;
 		cursor: not-allowed;
+	}
+}
+
+.action-button {
+	background-color: $accent;
+	color: white;
+	width: 200px;
+	height: 50px;
+	font-size: 1.5rem;
+	&:hover {
+		opacity: 0.4;
 	}
 }
 
@@ -223,7 +235,7 @@ input[type='checkbox']:not(:checked) + label:before {
 	background-color: white;
 }
 
-input[type='checkbox'].error-field + label:before{
+input[type='checkbox'].error-field + label:before {
 	border: 1px solid $error-border;
 }
 
@@ -265,36 +277,36 @@ a.nuxt-link-exact-active {
 	color: $black;
 }
 .container {
-	max-width: 1561px;
+	max-width: 1140px;
 	margin: 0 auto;
 }
 
 .error-field {
-  border-color: $error-border;
+	border-color: $error-border;
 }
 
 .list-enter-from {
-  opacity: 0;
+	opacity: 0;
 }
 
 .list-enter-active {
-  transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
 }
 
 .list-enter-to,
 .list-leave-from {
-  opacity: 1;
+	opacity: 1;
 }
 
 .list-leave-active {
-  transition: all 0.5s ease-in;
-  position: absolute;
+	transition: all 0.5s ease-in;
+	position: absolute;
 }
 
 .list-leave-to {
-  opacity: 0;
+	opacity: 0;
 }
 
 .list-move {
-  transition: transform 0.5s ease;
+	transition: transform 0.5s ease;
 }

@@ -46,7 +46,7 @@ nav ul {
   grid-template-columns: 1fr repeat(5, fit-content(50px));
   grid-gap: 20px;
   align-items: center;
-  max-width: 1561px;
+  max-width: 1140px;
   height: 100%;
   margin: 0 auto;
   padding: 1rem;

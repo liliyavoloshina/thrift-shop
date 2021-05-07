@@ -29,6 +29,7 @@ export default {
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 1rem;
   .button-create {
     display: inline-block;
@@ -43,5 +44,13 @@ export default {
       opacity: 0.4;
     }
   }
+  @media (max-width: 480px) {
+      flex-direction: column;
+      h1 {
+        text-align: center;
+        margin-bottom: .5rem;
+      }
+      margin-bottom: 2rem;
+    }
 }
 </style>

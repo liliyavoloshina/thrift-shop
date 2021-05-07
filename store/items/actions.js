@@ -33,10 +33,6 @@ export default {
 				`${process.env.firebaseApi}items.json`,
 				dataToSend
 			)
-			await this.$axios.$post(
-				`${process.env.firebaseApi}users/${itemData.ownerId}/items.json`,
-				{...dataToSend, id: res.name}
-			)
 			commit('addNewItem', {...dataToSend, id: res.name})
 		} catch (e) {
 			console.log(e)

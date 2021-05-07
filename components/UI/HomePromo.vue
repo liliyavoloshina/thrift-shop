@@ -25,11 +25,11 @@
       </nuxt-link>
     </div>
     <div class="promo-item promo-item-four">
-      <nuxt-link to="/about">
+      <nuxt-link to="/items/create">
         <img
-          src="https://images.unsplash.com/photo-1540221652346-e5dd6b50f3e7?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8Y2xvdGhlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+          src="https://images.unsplash.com/photo-1445205170230-053b83016050?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80"
           alt="dresses">
-        <div class="text">Get it for free</div>
+        <div class="text">Start right now!</div>
       </nuxt-link>
     </div>
   </div>
@@ -46,7 +46,7 @@ export default {}
   grid-template-rows: repeat(4, 1fr);
   grid-gap: .5rem;
   min-height: 100vh;
-  max-height: 50rem;
+  max-height: 60rem;
   .promo-item {
     position: relative;
     .text {
@@ -62,15 +62,15 @@ export default {}
       font-size: 4rem;
     }
     &-two {
-      grid-area: 1 / 3 / 2 / 4;
+      grid-area: 2 / 3 / 3 / 5;
       font-size: 3rem;
     }
     &-three {
-      grid-area: 2 / 3 / 3 / 4;
+      grid-area: 1 / 3 / 2 / 5;
       font-size: 3rem;
     }
     &-four {
-      grid-area: 3 / 1 / 5 / 4;
+      grid-area: 3 / 1 / 5 / 5;
       font-size: 4rem;
     }
     @media (max-width: 768px) {

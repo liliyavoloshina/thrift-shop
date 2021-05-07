@@ -18,7 +18,11 @@
       </div>
 
       <div class="actions">
-        <button class="icon-button button-fav">
+        <button v-if="owner" @click="deleteItem" class="submit-button">
+          Delete
+        </button>
+
+        <button v-if="!owner" class="icon-button button-fav">
           <svg class="heart" viewBox="0 0 32 29.6">
             <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
 	c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
@@ -26,7 +30,7 @@
           <span>Add to Favorites</span>
         </button>
 
-        <nuxt-link :to="`/user/${item.ownerId}`">
+        <nuxt-link v-if="!owner" :to="`/user/${item.ownerId}`">
           <button class="icon-button button-contact">
             <svg class="svg-icon" viewBox="0 0 20 20">
               <path
@@ -42,6 +46,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
   name: 'Item',
   async asyncData({params, $axios}) {
@@ -58,6 +63,22 @@ export default {
   computed: {
     isFav() {
       return this.$store.getters['items/isFavorite'](this.item.id)
+    },
+    owner() {
+      return this.user.id === this.item.ownerId
+    },
+    ...mapState(['user'])
+  },
+  methods: {
+    async deleteItem() {
+      await this.$axios.$delete(
+        `${process.env.firebaseApi}items/${this.$route.params.id}.json`
+      )
+      await this.$axios.$delete(
+        `${process.env.firebaseApi}users/favorite.json`, {query: {orderBy: 'id', equalTo: `${this.$route.params.id}`}}
+      )
+      this.$router.go(-1)
+      // this.$router.push('/items')
     }
   }
 }
@@ -138,6 +159,17 @@ export default {
     fill: white;
     width: 1.5rem;
     height: 100%;
+  }
+}
+.button-delete {
+  background-color: $accent-2;
+  text-align: center;
+  padding: 0.5rem 2rem;
+  font-size: 1.5rem;
+  color: white;
+
+  &:hover {
+    background-color: $accent;
   }
 }
 

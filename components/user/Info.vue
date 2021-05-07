@@ -2,8 +2,8 @@
   <div class="profile-info profile-block">
     <div class="header">
       <h1>PERSONAL INFORMATION</h1>
-      <button v-if="owner" @click="logout" class="button button-logout">Logout</button>
-      <button v-else @click="log" class="button button-logout">Contact</button>
+      <button v-if="owner" @click="logout" class="button action-button">Logout</button>
+      <button v-else @click="log" class="button action-button">Contact</button>
     </div>
     <ul class="personal-info">
       <li><span class="label">Name:</span> {{user.name}}</li>
@@ -41,15 +41,14 @@ export default {
   .header {
     display: flex;
     justify-content: space-between;
-    .button-logout {
-      background-color: $accent;
-      color: white;
-      width: 200px;
-      height: 50px;
-      font-size: 1.5rem;
-      &:hover {
-        opacity: 0.4;
+    align-items: center;
+    @media (max-width: 480px) {
+      flex-direction: column;
+      h1 {
+        text-align: center;
+        margin-bottom: .5rem;
       }
+      margin-bottom: 2rem;
     }
   }
   .personal-info {
@@ -65,6 +64,10 @@ export default {
         color: $accent-2;
       }
     }
+  }
+
+  .action-button:first-of-type {
+    background-color: $black;
   }
 }
 </style>
