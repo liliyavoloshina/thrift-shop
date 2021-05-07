@@ -1,8 +1,7 @@
 <template>
   <div class="home container">
-    <div class="home-promo">
-      <HomeLanding />
-    </div>
+    
+    <UIHomePromo />
 
     <div class="home-items">
       <div class="home-items-area">
