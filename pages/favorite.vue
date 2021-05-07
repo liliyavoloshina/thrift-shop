@@ -11,10 +11,10 @@ import {mapState} from 'vuex'
 export default {
   computed: {
     ...mapState(['user']),
-    ...mapState('items', ['favoriteItems']),
+    ...mapState('users', ['favoriteItems']),
   },
   created() {
-    this.$store.dispatch('items/getFavoriteItems', this.user.id)
+    this.$store.dispatch('users/getFavoriteItems', this.user.id)
   },
   middleware: ['check-auth']
 }

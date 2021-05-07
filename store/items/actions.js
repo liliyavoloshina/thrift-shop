@@ -69,30 +69,5 @@ export default {
 		await commit('setFilterGender', '')
 		await commit('setFilterCategory', 'all')
 		await commit('filterItems')
-	},
-	async getFavoriteItems({commit}, uuid) {
-		try {
-			const res = await this.$axios.$get(
-				`${process.env.firebaseApi}users/${uuid}/favorite.json`
-			)
-			const items = []
-			for (let item in res) {
-				items.push({...res[item]})
-			}
-			commit('setFavoriteItems', items)
-		} catch (e) {
-			console.log(e)
-		}
-	},
-	async addToFavorite({commit}, {item, uuid}) {
-		try {
-			const res = await this.$axios.$post(
-				`${process.env.firebaseApi}users/${uuid}/favorite.json`,
-				item
-			)
-			commit('addToFavorite', item)
-		} catch (e) {
-			console.log(e)
-		}
 	}
 }

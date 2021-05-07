@@ -4,7 +4,9 @@
     <main>
       <Nuxt keep-alive />
     </main>
-    <footer></footer>
+    <footer>
+      <div>&copy; 2021 made by <a href="https://www.facebook.com/profile.php?id=100036259350594"> liliyavoloshine</a></div>
+    </footer>
   </div>
 </template>
 
@@ -26,7 +28,11 @@ export default {
     padding: 20px;
   }
   footer {
-    background: $accent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid $grey;
+    background: white;
   }
 }
 </style>

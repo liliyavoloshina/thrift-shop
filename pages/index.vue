@@ -62,8 +62,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home-promo {
-}
 .home-items {
   margin-top: 2rem;
   .home-items-area {

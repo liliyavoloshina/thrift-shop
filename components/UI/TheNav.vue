@@ -34,7 +34,7 @@ export default {
 
 <style lang="scss" scoped>
 header {
-  border-bottom: 1px solid $black;
+  border-bottom: 1px solid $grey;
 }
 
 nav {

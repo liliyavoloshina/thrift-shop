@@ -31,6 +31,11 @@ body::-webkit-scrollbar {
 
 a {
 	text-decoration: none;
+		color: $black;
+
+		&:hover {
+			color: $accent;
+		}
 }
 
 ul {
@@ -77,13 +82,13 @@ img {
 	object-fit: cover;
 }
 
-nav {
-	li {
-		a {
-			color: $black;
-		}
-	}
-}
+// nav {
+// 	li {
+// 		a {
+// 			color: $black;
+// 		}
+// 	}
+// }
 
 textarea {
 	resize: none;

@@ -1,7 +1,8 @@
 <template>
   <div v-if="user" class="profile container">
-    <UserInfo :user="userInfo" :owner="owner" />
-    <UserItems :items="userItems" />
+    <!-- <UserInfo :user="userInfo" :owner="owner" />
+    <UserItems :items="userItems" :owner="owner" /> -->
+    {{user.items}}
   </div>
 </template>
 
@@ -20,20 +21,22 @@ export default {
     },
     ...mapState(['user'])
   },
-  async fetch() {
-    const user = await this.$axios.$get(
-      `${process.env.firebaseApi}users/${this.$route.params.id}.json`
-    )
-    this.userInfo = {
-      email: user.email,
-      name: user.name,
-      location: user.location
-    }
-    const userItems = []
-    for (let item in user.items) {
-      userItems.push({...user.items[item]})
-    }
-    this.userItems = userItems
+  created() {
+    // this.$store.dispatch('users/getUserItems', this.$route.params.id)
+    // const user = await this.$axios.$get(
+    //   `${process.env.firebaseApi}users/${this.$route.params.id}.json`
+    // )
+    // this.userInfo = {
+    //   email: user.email,
+    //   name: user.name,
+    //   location: user.location
+    // }
+    // const userItems = []
+    // for (let item in user.items) {
+    //   userItems.push({...user.items[item]})
+    // }
+    // console.log(userItems)
+    // this.userItems = userItems
   },
   middleware: ['check-auth']
 }

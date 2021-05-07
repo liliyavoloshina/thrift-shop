@@ -9,7 +9,7 @@
       </nuxt-link>
     </div>
     <div class="promo-item promo-item-two">
-      <nuxt-link to="/clothes">
+      <nuxt-link to="/items">
         <img
           src="https://images.unsplash.com/photo-1520006403909-838d6b92c22e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fGNsb3RoZXN8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
           alt="dresses">
@@ -17,7 +17,7 @@
       </nuxt-link>
     </div>
     <div class="promo-item promo-item-three">
-      <nuxt-link to="/woman">
+      <nuxt-link to="/items">
         <img
           src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjh8fGNsb3RoZXN8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
           alt="woman">
@@ -25,7 +25,7 @@
       </nuxt-link>
     </div>
     <div class="promo-item promo-item-four">
-      <nuxt-link to="/dresses">
+      <nuxt-link to="/about">
         <img
           src="https://images.unsplash.com/photo-1540221652346-e5dd6b50f3e7?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8Y2xvdGhlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
           alt="dresses">

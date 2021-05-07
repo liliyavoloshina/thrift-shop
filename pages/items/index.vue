@@ -25,7 +25,9 @@ export default {
     await store.dispatch('items/getItems')
   },
   async created() {
-    await this.$store.dispatch('items/getFavoriteItems', this.user.id)
+    if (this.$store.getters['isAuthorized']) {
+      await this.$store.dispatch('users/getFavoriteItems', this.user.id)
+    }
   },
   computed: {
     ...mapState('items', ['items', 'filteredItems']),
@@ -33,7 +35,7 @@ export default {
   },
   methods: {
     addToFavorite(item) {
-      this.$store.dispatch('items/addToFavorite', {
+      this.$store.dispatch('users/addToFavorite', {
         item: item,
         uuid: this.user.id
       })

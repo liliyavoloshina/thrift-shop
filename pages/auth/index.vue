@@ -9,7 +9,8 @@ export default {
     async onSubmit(userInfo) {
       try {
         await this.$store.dispatch('authUser', userInfo)
-        this.$router.push('/')
+        let redirectUrl = this.$route.query.redirect || '/'
+        this.$router.push(`${redirectUrl}`)
       } catch (e) {
         console.log(e)
       }

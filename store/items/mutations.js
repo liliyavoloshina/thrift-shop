@@ -5,7 +5,6 @@ export default {
 		state.imageUrl = imageUrl
 	},
 	addNewItem(state, item) {
-		console.log(state.items)
 		state.items.push(item)
 	},
 	setItems(state, items) {
@@ -31,14 +30,5 @@ export default {
 		const items = [...state.items]
 		state.filteredItems = items
 		state.filteredItems = Filters.filterItems(state.filters, items)
-	},
-	setUserItems(state, items) {
-		state.userItems = items
-	},
-	setFavoriteItems(state, items) {
-		state.favoriteItems = items
-	},
-	addToFavorite(state, item) {
-		state.favoriteItems.push(item)
 	}
 }

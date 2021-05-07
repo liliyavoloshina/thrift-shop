@@ -7,20 +7,19 @@
           <label for="name">Name:</label>
           <input v-model="$v.name.$model" :class="$v.name.$invalid && $v.name.$dirty || showError ? 'error-field' : ''"
             id="name" type="text" placeholder="Type your thing name...">
-          <UIErrorMessage v-if="!$v.name.required && $v.name.$dirty || showError">Name is required
-          </UIErrorMessage>
+          <div v-if="!$v.name.required && $v.name.$dirty || showError" class="error">Name is required</div>
         </div>
         <div class="form-input">
           <label for="description">Description:</label>
           <textarea v-model="$v.description.$model"
             :class="$v.description.$invalid && $v.description.$dirty || showError ? 'error-field' : ''" id="description"
             rows="5" maxlength="50" placeholder="Describe your thing..."></textarea>
-          <UIErrorMessage v-if="!$v.description.required && $v.description.$dirty || showError">Description is
+          <div v-if="!$v.description.required && $v.description.$dirty || showError" class="error">Description is
             required
-          </UIErrorMessage>
-          <UIErrorMessage v-if="!$v.description.minLength && $v.description.$dirty || showError">Description is too
+          </div>
+          <div v-if="!$v.description.minLength && $v.description.$dirty || showError" class="error">Description is too
             short
-          </UIErrorMessage>
+          </div>
         </div>
         <div class="form-input">
           <label for="category">Category:</label>
@@ -31,8 +30,8 @@
             <option value="shoes">Shoes</option>
             <option value="accessories">Accessories</option>
           </select>
-          <UIErrorMessage v-if="!$v.category.required && $v.category.$dirty || showError">Category is required
-          </UIErrorMessage>
+          <div v-if="!$v.category.required && $v.category.$dirty || showError" class="error">Category is required
+          </div>
         </div>
         <div class="form-input">
           <label>Choose thing's gender:</label>
@@ -56,9 +55,9 @@
             for="file">
             {{imageLabel}}
           </label>
-          <UIErrorMessage v-if="($v.image.$invalid && showError)">Image
+          <div v-if="($v.image.$invalid && showError)" class="error">Image
             is required
-          </UIErrorMessage>
+          </div>
         </div>
         <button :disabled="showError && $v.$invalid" class="submit-button" type="submit">Submit</button>
       </div>
@@ -184,5 +183,12 @@ form {
   background-color: $note-light;
   font-size: 1.5rem;
   padding: 2rem;
+}
+
+.error {
+  color: $error-message;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
 }
 </style>
