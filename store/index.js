@@ -100,6 +100,6 @@ export const actions = {
 
 export const getters = {
 	isAuthorized(state) {
-		return state.token !== null && state.token !== undefined
+		return state.token ? true : false
 	}
 }

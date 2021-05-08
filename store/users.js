@@ -12,6 +12,13 @@ export const mutations = {
 	},
 	addToFavorite(state, item) {
 		state.favoriteItems.push(item)
+	},
+	deleteUserItem(state, id) {
+		const item = state.userItems.find((item) => item.id === id)
+    const index = state.userItems.indexOf(item)
+    if (index !== -1) {
+      state.userItems.splice(index, 1)
+    }
 	}
 }
 export const actions = {
@@ -42,19 +49,9 @@ export const actions = {
 	},
 	async getUserItems({commit}, uuid) {
 		try {
-			let params = {
-				orderBy: "ownerId",
-				equalTo: `${uuid}`
-			}
 			const res = await this.$axios.$get(
-				`${process.env.firebaseApi}items.json`, {
-					params: {
-						orderBy: 'ownerId'
-					}
-			}
-				// `${process.env.firebaseApi}items.json`, {params: params}
+				`${process.env.firebaseApi}items.json?orderBy="ownerId"&equalTo="${uuid}"`
 			)
-			console.log(res)
 			const items = []
 			for (let item in res) {
 				items.push({...res[item], id: item})
@@ -63,6 +60,15 @@ export const actions = {
 		} catch (e) {
 			console.log(e)
 		}
+	},
+	async deleteUserItem({commit}, id) {
+		await this.$axios.$delete(
+			`${process.env.firebaseApi}items/${id}.json`
+		)
+		await this.$axios.$delete(
+			`${process.env.firebaseApi}users/favorite.json`, {query: {orderBy: 'id', equalTo: `${id}`}}
+		)
+		commit('deleteUserItem', id)
 	}
 }
 
@@ -75,7 +81,7 @@ export const getters = {
 		}
 	},
 	isOwner: state => id => {
-		if (state.userItems.find(item => item.id === id)) {
+		if (state.userItems.find(item => item.id == id)) {
 			return true
 		} else {
 			return false

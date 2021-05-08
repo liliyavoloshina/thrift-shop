@@ -8,10 +8,11 @@
         <li>
           <nuxt-link to="/items">Search!</nuxt-link>
         </li>
-        <li v-if="user.id">
+        {{isAuthorized}}
+        <li v-if="isAuthorized">
           <nuxt-link :to="`/user/${user.id}`">Profile</nuxt-link>
         </li>
-        <li v-else>
+        <li v-if="!isAuthorized">
           <nuxt-link :to="`/auth`">Profile</nuxt-link>
         </li>
         <li>
@@ -23,11 +24,12 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapGetters} from 'vuex'
 export default {
   name: 'AppNav',
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user']),
+    ...mapGetters(['isAuthorized'])
   }
 }
 </script>

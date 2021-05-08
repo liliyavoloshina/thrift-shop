@@ -15,9 +15,8 @@ export default {
     ...mapState(['user']),
     ...mapState('users', ['userItems'])
   },
-  // fetch useritems with ssr
-  async fetch({store, params}) {
-    await store.dispatch('users/getUserItems', params.id)
+  async created() {
+    await this.$store.dispatch('users/getUserItems', this.$route.params.id)
   },
   middleware: ['check-auth']
 }

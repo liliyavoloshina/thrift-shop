@@ -18,28 +18,20 @@
       </div>
 
       <div class="actions">
-        <button v-if="owner" @click="deleteItem" class="submit-button">
-          Delete
-        </button>
 
-        <button v-if="!owner" class="icon-button button-fav">
-          <svg class="heart" viewBox="0 0 32 29.6">
-            <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
-	c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
-          </svg>
-          <span>Add to Favorites</span>
-        </button>
-
-        <nuxt-link v-if="!owner" :to="`/user/${item.ownerId}`">
-          <button class="icon-button button-contact">
-            <svg class="svg-icon" viewBox="0 0 20 20">
-              <path
-                d="M17.388,4.751H2.613c-0.213,0-0.389,0.175-0.389,0.389v9.72c0,0.216,0.175,0.389,0.389,0.389h14.775c0.214,0,0.389-0.173,0.389-0.389v-9.72C17.776,4.926,17.602,4.751,17.388,4.751 M16.448,5.53L10,11.984L3.552,5.53H16.448zM3.002,6.081l3.921,3.925l-3.921,3.925V6.081z M3.56,14.471l3.914-3.916l2.253,2.253c0.153,0.153,0.395,0.153,0.548,0l2.253-2.253l3.913,3.916H3.56z M16.999,13.931l-3.921-3.925l3.921-3.925V13.931z">
-              </path>
-            </svg>
-            <span>Contact Owner</span>
+        <template v-if="isOwner">
+          <button @click="deleteItem" class="submit-button">
+            Delete
           </button>
-        </nuxt-link>
+        </template>
+
+        <template v-if="!isOwner">
+          <button class="button action-button">Add to Favorites</button>
+          <nuxt-link :to="`/user/${item.ownerId}`" class="button submit-button-small">
+            Contact Owner
+          </nuxt-link>
+        </template>
+
       </div>
     </div>
   </div>
@@ -64,19 +56,20 @@ export default {
     isFav() {
       return this.$store.getters['items/isFavorite'](this.item.id)
     },
-    owner() {
-      return this.user.id === this.item.ownerId
+    isOwner() {
+      return this.$store.getters['users/isOwner'](this.$route.params.id)
     },
     ...mapState(['user'])
   },
+  async created() {
+    if (this.$store.getters['isAuthorized']) {
+      await this.$store.dispatch('users/getFavoriteItems', this.user.id)
+      await this.$store.dispatch('users/getUserItems', this.user.id)
+    }
+  },
   methods: {
     async deleteItem() {
-      await this.$axios.$delete(
-        `${process.env.firebaseApi}items/${this.$route.params.id}.json`
-      )
-      await this.$axios.$delete(
-        `${process.env.firebaseApi}users/favorite.json`, {query: {orderBy: 'id', equalTo: `${this.$route.params.id}`}}
-      )
+      await this.$store.dispatch('users/deleteUserItem', this.$route.params.id)
       this.$router.go(-1)
       // this.$router.push('/items')
     }
@@ -88,7 +81,7 @@ export default {
 .item {
   display: grid;
   grid-gap: 2em;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-auto-rows: minmax(300px, auto);
 
   .image {
@@ -108,6 +101,8 @@ export default {
 
       .detail {
         width: 45%;
+        word-wrap: break-word;
+        overflow: auto;
         h1 {
           font-size: 2rem;
         }
@@ -136,31 +131,6 @@ export default {
     }
   }
 }
-
-.icon-button {
-  display: flex;
-  align-items: center;
-  float: right;
-  width: 45%;
-  height: 35px;
-
-  span {
-    color: white;
-  }
-}
-
-.button-fav {
-  background-color: $accent-2;
-  &.active .heart,
-  &:hover .heart {
-    fill: $accent;
-  }
-  .heart {
-    fill: white;
-    width: 1.5rem;
-    height: 100%;
-  }
-}
 .button-delete {
   background-color: $accent-2;
   text-align: center;
@@ -170,31 +140,6 @@ export default {
 
   &:hover {
     background-color: $accent;
-  }
-}
-
-.button-contact {
-  background-color: $contact;
-  &:hover .svg-icon {
-    fill: $contact-2;
-  }
-  .svg-icon {
-    fill: white;
-    width: 30%;
-    height: 100%;
-    animation: pulse 1s ease infinite;
-  }
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.3);
-  }
-  100% {
-    transform: scale(1);
   }
 }
 </style>

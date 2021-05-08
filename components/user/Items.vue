@@ -2,7 +2,8 @@
   <div class="profile-product profile-block">
     <div class="header">
       <h1>ITEMS</h1>
-      <nuxt-link v-if="owner" to="/items/create" class="button button-create">Add new!</nuxt-link>
+      <nuxt-link v-if="owner" to="/items/create" class="button submit-button-small">Add new!</nuxt-link>
+      <!-- <nuxt-link v-if="owner" to="/items/create" class="button button-create">Add new!</nuxt-link> -->
     </div>
     <div v-if="items.length>0" class="products">
       <ItemTray :items="items" />
@@ -41,16 +42,16 @@ export default {
     font-weight: 600;
     font-size: 1.5rem;
     &:hover {
-      opacity: 0.4;
+      color: $black;
     }
   }
   @media (max-width: 480px) {
-      flex-direction: column;
-      h1 {
-        text-align: center;
-        margin-bottom: .5rem;
-      }
-      margin-bottom: 2rem;
+    flex-direction: column;
+    h1 {
+      text-align: center;
+      margin-bottom: 0.5rem;
     }
+    margin-bottom: 2rem;
+  }
 }
 </style>
