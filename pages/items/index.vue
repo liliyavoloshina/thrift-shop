@@ -31,6 +31,13 @@ export default {
     ...mapState('items', ['items', 'filteredItems']),
     ...mapState(['user'])
   },
+  // watch: {
+  //  $route: function () {
+  //    if (this.$route.path == '/items') {
+  //     await this.$store.dispatch('users/getUserItems', this.user.id)
+  //    }
+  //  }
+  // },
   methods: {
     async getUserItems() {
       if (this.$store.getters['isAuthorized']) {

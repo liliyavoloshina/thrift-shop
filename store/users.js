@@ -14,11 +14,14 @@ export const mutations = {
 		state.favoriteItems.push(item)
 	},
 	deleteUserItem(state, id) {
-		const item = state.userItems.find((item) => item.id === id)
-    const index = state.userItems.indexOf(item)
-    if (index !== -1) {
-      state.userItems.splice(index, 1)
-    }
+		const item = state.userItems.find(item => item.id === id)
+		const index = state.userItems.indexOf(item)
+		if (index !== -1) {
+			state.userItems.splice(index, 1)
+		}
+	},
+	addToUserItems(store, item) {
+		store.userItems.push(item)
 	}
 }
 export const actions = {
@@ -62,11 +65,10 @@ export const actions = {
 		}
 	},
 	async deleteUserItem({commit}, id) {
+		await this.$axios.$delete(`${process.env.firebaseApi}items/${id}.json`)
 		await this.$axios.$delete(
-			`${process.env.firebaseApi}items/${id}.json`
-		)
-		await this.$axios.$delete(
-			`${process.env.firebaseApi}users/favorite.json`, {query: {orderBy: 'id', equalTo: `${id}`}}
+			`${process.env.firebaseApi}users/favorite.json`,
+			{query: {orderBy: 'id', equalTo: `${id}`}}
 		)
 		commit('deleteUserItem', id)
 	}

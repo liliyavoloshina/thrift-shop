@@ -5,7 +5,7 @@
       <Nuxt keep-alive />
     </main>
     <footer>
-      <div>&copy; 2021 made by <a href="https://www.facebook.com/profile.php?id=100036259350594"> liliyavoloshine</a></div>
+      <div>&copy; 2021 made by <a href="https://github.com/liliyavoloshina" target="_blank"> liliyavoloshine</a></div>
     </footer>
   </div>
 </template>

@@ -13,59 +13,71 @@ export const mutations = {
 }
 
 export const actions = {
-	async authUser({commit}, authInfo) {
-		let authUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.firebaseWebApi}`
+	async signin({commit}, authInfo) {
+		// аутентификация через fb
+		const res = await this.$axios.$post(
+			`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.firebaseWebApi}`,
+			{
+				email: authInfo.email,
+				password: authInfo.password,
+				returnSecureToken: true
+			}
+		)
+		const expirationTime = res.expiresIn / 60
+		this.$cookies.set('token', res.idToken, {
+			maxAge: expirationTime
+		})
+		commit('setToken', res.idToken)
 
-		if (!authInfo.isSignin) {
-			authUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.firebaseWebApi}`
+		// получение данных о юзере из бд (нужно ли разбить на 2й экшн?)
+		try {
+			const res = await this.$axios.$get(
+				`${process.env.firebaseApi}users.json?orderBy="email"&equalTo="${authInfo.email}"`
+			)
+			const uuid = Object.keys(res)[0]
+			const userInfo = await this.$axios.$get(
+				`${process.env.firebaseApi}users/${uuid}.json`
+			)
+			commit('setUser', {...userInfo, id: uuid})
+			this.$cookies.set('uuid', uuid, {
+				maxAge: expirationTime
+			})
+		} catch (e) {
+			console.log(e)
+		}
+	},
+	async signup({commit}, authInfo) {
+		// аутентификация через fb
+		const res = await this.$axios.$post(
+			`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.firebaseWebApi}`,
+			{
+				email: authInfo.email,
+				password: authInfo.password,
+				returnSecureToken: true
+			}
+		)
+		const expirationTime = res.expiresIn / 60
+		this.$cookies.set('token', res.idToken, {
+			maxAge: expirationTime
+		})
 
+		commit('setToken', res.idToken)
+
+		// добавление инфы о юзере в бд
+		try {
 			const newUserInfo = {
 				name: authInfo.name,
 				email: authInfo.email,
 				location: authInfo.location
 			}
-
-			try {
-				const res = await this.$axios.$post(
-					`${process.env.firebaseApi}users.json`,
-					newUserInfo
-				)
-				commit('setUser', {...newUserInfo, id: res.name})
-
-				this.$cookies.set('uuid', res.name)
-			} catch (e) {
-				console.log(e)
-			}
-		} else {
-			try {
-				const res = await this.$axios.$get(
-					`${process.env.firebaseApi}users.json?orderBy="email"&equalTo="${authInfo.email}"`
-				)
-				const uuid = Object.keys(res)[0]
-				const userInfo = await this.$axios.$get(
-					`${process.env.firebaseApi}users/${uuid}.json`
-				)
-				commit('setUser', {...userInfo, id: uuid})
-				this.$cookies.set('uuid', uuid, {
-					maxAge: 3600
-				})
-			} catch (e) {
-				console.log(e)
-			}
-		}
-
-		try {
-			const res = await this.$axios.$post(authUrl, {
-				email: authInfo.email,
-				password: authInfo.password,
-				returnSecureToken: true
+			const res = await this.$axios.$post(
+				`${process.env.firebaseApi}users.json`,
+				newUserInfo
+			)
+			commit('setUser', {...newUserInfo, id: res.name})
+			this.$cookies.set('uuid', res.name, {
+				maxAge: expirationTime
 			})
-
-			this.$cookies.set('token', res.idToken, {
-				maxAge: res.expiresIn
-			})
-
-			commit('setToken', res.idToken)
 		} catch (e) {
 			console.log(e)
 		}

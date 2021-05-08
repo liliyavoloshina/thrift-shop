@@ -1,6 +1,6 @@
 <template>
   <aside>
-    <nuxt-link to="/items/create" class="create-button button">Add Your Own!</nuxt-link>
+    <nuxt-link to="/items/create" class="create-button">Add Your Own!</nuxt-link>
 
     <ul class="filter-ul">
       <li>

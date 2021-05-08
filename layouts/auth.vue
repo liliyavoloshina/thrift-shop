@@ -22,7 +22,7 @@ export default {
 
   main {
     min-height: 200px;
-    min-width: 300px;
+    width: 300px;
     display: flex;
     align-items: center;
     justify-content: center;

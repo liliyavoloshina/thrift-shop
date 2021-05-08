@@ -1,15 +1,15 @@
 <template>
   <form @submit.prevent="onSubmit">
-    <h1 v-if="signIn">Sign In</h1>
-    <h1 v-else>Sign Up</h1>
+    <h1>Sign Up</h1>
 
-    <div v-if="!signIn" class="form-input">
+    <div class="form-input">
       <label for="name">Name:</label>
       <input v-model="$v.name.$model" :class="$v.name.$error ? 'error-field' : ''" type="text" id="name"
         placeholder="Enter your name or nickname...">
       <div v-if="!$v.name.required && $v.name.$dirty" class="error">Name is required</div>
     </div>
-    <div v-if="!signIn" class="form-input">
+
+    <div class="form-input">
       <label for="location">Location:</label>
       <input v-model="$v.location.$model" :class="$v.location.$error ? 'error-field' : ''" type="text" id="location"
         placeholder="Enter your location...">
@@ -23,14 +23,8 @@
       <div v-if="!$v.email.required && $v.email.$dirty">Email is required</div>
       <div v-if="!$v.email.email && $v.email.$dirty" class="error">Email must be valid</div>
     </div>
-    <div v-if="signIn" class="form-input">
-      <label for="password">Password:</label>
-      <input v-model="$v.password.$model" :class="$v.password.$error ? 'error-field' : ''" type="password" id="password"
-        placeholder="Enter your password...">
-      <div v-if="!$v.password.required && $v.password.$dirty" class="error">Password is required</div>
-    </div>
 
-    <div v-if="!signIn" class="form-input">
+    <div class="form-input">
       <label for="password">Password:</label>
       <input v-model="$v.password.$model" :class="$v.password.$error ? 'error-field' : ''" type="password" id="password"
         placeholder="Enter password...">
@@ -39,15 +33,16 @@
         {{ $v.password.$params.minLength.min }} letters</div>
     </div>
 
-    <div v-if="!signIn" class="form-input">
+    <div class="form-input">
       <label for="password-repeat">Repeat password:</label>
       <input v-model="$v.repeatPassword.$model" :class="$v.repeatPassword.$error ? 'error-field' : ''" type="password"
         id="password-repeat" placeholder="Repeat your password...">
-      <div v-if="!$v.repeatPassword.sameAsPassword && $v.repeatPassword.$dirty" class="error">Passwords must be identical
+      <div v-if="!$v.repeatPassword.sameAsPassword && $v.repeatPassword.$dirty" class="error">Passwords must be
+        identical
       </div>
     </div>
 
-    <div v-if="!signIn" class="agreement-block">
+    <div class="agreement-block">
       <input v-model="$v.agreement.$model" :class="$v.agreement.$error ? 'error-field' : ''" type="checkbox"
         id="agreement">
       <label for="agreement">I'm agree!</label>
@@ -55,8 +50,9 @@
     </div>
 
     <div class="actions">
-      <button :disabled="$v.$anyDirty && $v.$invalid" class="submit-button button" type="submit">Sign In</button>
-      <a @click="toggleForm" class="toggle-link">{{labelLink}}</a>
+      <div v-if="responseError" class="response-error">{{responseError}}</div>
+      <button :disabled="$v.$anyDirty && $v.$invalid" class="submit-button" type="submit">Sign Up</button>
+      <nuxt-link to="/auth" class="toggle-link">Already have an account?</nuxt-link>
     </div>
   </form>
 </template>
@@ -67,86 +63,62 @@ export default {
   name: 'Auth',
   data() {
     return {
-      signIn: true,
       name: '',
       location: '',
       email: '',
       password: '',
       repeatPassword: '',
-      agreement: false
-    }
-  },
-  computed: {
-    labelLink() {
-      return this.signIn ? `Don't have an account?` : `Already have an account?`
+      agreement: false,
+      responseError: null
     }
   },
   methods: {
-    onSubmit() {
+    async onSubmit() {
       this.$v.$touch()
 
       if (this.$v.$invalid) {
         return
-      } else {
-        let userInfo = {
-          email: this.email,
-          password: this.password,
-          isSignin: true
-        }
-
-        if (this.signIn === false) {
-          userInfo = {
-            name: this.name,
-            location: this.location,
-            email: this.email,
-            password: this.password,
-            isSignin: false
-          }
-        }
-
-        this.$emit('onSubmit', userInfo)
       }
-    },
-    toggleForm() {
-      this.signIn = !this.signIn
+
+      const authInfo = {
+        name: this.name,
+        location: this.location,
+        email: this.email,
+        password: this.password
+      }
+
+      try {
+        await this.$store.dispatch('signup', authInfo)
+        let redirectUrl = this.$route.query.redirect || '/'
+        this.$router.replace(`${redirectUrl}`)
+      } catch ({response}) {
+        this.responseError = response.data.error.message
+      }
     }
   },
-  validations() {
-    if (this.signIn) {
-      return {
-        email: {
-          required,
-          email
-        },
-        password: {
-          required
-        }
-      }
-    } else {
-      return {
-        name: {
-          required
-        },
-        location: {
-          required
-        },
-        email: {
-          required,
-          email
-        },
-        password: {
-          required,
-          minLength: minLength(6)
-        },
-        repeatPassword: {
-          sameAsPassword: sameAs('password')
-        },
-        agreement: {
-          sameAs: sameAs(() => true)
-        }
-      }
+  validations: {
+    name: {
+      required
+    },
+    location: {
+      required
+    },
+    email: {
+      required,
+      email
+    },
+    password: {
+      required,
+      minLength: minLength(6)
+    },
+    repeatPassword: {
+      sameAsPassword: sameAs('password')
+    },
+    agreement: {
+      sameAs: sameAs(() => true)
     }
-  }
+  },
+  layout: 'auth'
 }
 </script>
 
@@ -192,6 +164,11 @@ h1 {
   color: $error-message;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+.response-error {
+  color: $error-message;
+  margin-top: 1rem;
   font-weight: 600;
 }
 </style>

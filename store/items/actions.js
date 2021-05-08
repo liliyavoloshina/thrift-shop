@@ -17,7 +17,7 @@ export default {
 			console.log(e)
 		}
 	},
-	async postNewItem({state, commit}, itemData) {
+	async postNewItem({state, commit, rootState}, itemData) {
 		const dataToSend = {
 			name: itemData.name,
 			description: itemData.description,
@@ -34,6 +34,8 @@ export default {
 				dataToSend
 			)
 			commit('addNewItem', {...dataToSend, id: res.name})
+			// также добавление в товары именно этого юзера, чтобы определять, какие в фаворитах, какие нет без обращния к серверу
+			commit('users/addToUserItems', {...dataToSend, id: res.name}, {root: true})
 		} catch (e) {
 			console.log(e)
 		}

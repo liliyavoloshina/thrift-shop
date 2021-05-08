@@ -126,7 +126,7 @@ export default {
         this.imageName = null
         this.showError = false
         // обновление товаров юзера до редиректа
-        await this.$store.dispatch('users/getUserItems', this.ownerId)
+        // await this.$store.dispatch('users/getUserItems', this.ownerId)
         this.$router.push('/items')
       } catch (e) {
         console.log(e)

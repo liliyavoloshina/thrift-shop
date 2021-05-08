@@ -8,7 +8,6 @@
         <li>
           <nuxt-link to="/items">Search!</nuxt-link>
         </li>
-        {{isAuthorized}}
         <li v-if="isAuthorized">
           <nuxt-link :to="`/user/${user.id}`">Profile</nuxt-link>
         </li>
