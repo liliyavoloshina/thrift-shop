@@ -23,8 +23,7 @@ export const actions = {
 				returnSecureToken: true
 			}
 		)
-		const expirationTime = 10000 * 24
-		// const expirationTime = res.expiresIn / 60
+		const expirationTime = res.expiresIn / 60
 		this.$cookies.set('token', res.idToken, {
 			maxAge: expirationTime
 		})
@@ -83,11 +82,11 @@ export const actions = {
 			console.log(e)
 		}
 	},
-	async nuxtServerInit({commit}, {app}) {
+	async nuxtServerInit({commit}, {app, error}) {
 		let token = app.$cookies.get('token')
 		let uid = app.$cookies.get('uuid')
 
-		if (token === undefined || uid === undefined) {
+		if (!token || !uid) {
 			token = this.$cookies.get('token')
 			uid = this.$cookies.get('uuid')
 		}
@@ -97,17 +96,20 @@ export const actions = {
 				`${process.env.firebaseApi}users/${uid}.json`
 			)
 			commit('setUser', {...res, id: uid})
-		} catch (e) {
-			console.log(e)
+		} catch ({response}) {
+			error({
+				statusCode: response.status,
+				message: response.statusText
+			})
 		}
 
 		commit('setToken', token)
 	},
 	logout({commit}) {
-		this.$cookies.remove('token')
-		this.$cookies.remove('uuid')
 		commit('setToken', null)
 		commit('setUser', null)
+		this.$cookies.removeAll()
+		this.$nuxt.app.$cookies.removeAll()
 	}
 }
 

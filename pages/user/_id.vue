@@ -19,7 +19,6 @@ export default {
     try {
       await this.$store.dispatch('items/getUserItems', this.$route.params.id)
     } catch (e) {
-      console.log(e)
       return this.$nuxt.error(e)
     }
   },

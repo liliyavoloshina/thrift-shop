@@ -1,6 +1,6 @@
 <template>
   <div v-if="loading" class="loading-area">
-    <div class="lds-heart"><div></div></div>
+    <div class="icon-heart"><div></div></div>
   </div>
 </template>
 
@@ -35,7 +35,7 @@ export default {
   z-index: 1000;
 }
 
-.lds-heart {
+.icon-heart {
   display: inline-block;
   position: relative;
   width: 80px;
@@ -43,17 +43,17 @@ export default {
   transform: rotate(45deg);
   transform-origin: 40px 40px;
 }
-.lds-heart div {
+.icon-heart div {
   top: 32px;
   left: 32px;
   position: absolute;
   width: 32px;
   height: 32px;
   background: $accent;
-  animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+  animation: icon-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
 }
-.lds-heart div:after,
-.lds-heart div:before {
+.icon-heart div:after,
+.icon-heart div:before {
   content: " ";
   position: absolute;
   display: block;
@@ -61,15 +61,15 @@ export default {
   height: 32px;
   background: $accent;
 }
-.lds-heart div:before {
+.icon-heart div:before {
   left: -24px;
   border-radius: 50% 0 0 50%;
 }
-.lds-heart div:after {
+.icon-heart div:after {
   top: -24px;
   border-radius: 50% 50% 0 0;
 }
-@keyframes lds-heart {
+@keyframes icon-heart {
   0% {
     transform: scale(0.95);
   }

@@ -1,10 +1,9 @@
 <template>
   <section class="container">
-    <UIFilteringAside />
-
+    <ItemFilterSidebar />
     <main>
       <div class="sortby-area">
-        <UISortingSelect />
+        <ItemSortSelect />
       </div>
       <transition-group v-if="filteredItems" name="list" class="main">
         <div v-for="item in filteredItems" :key="item.id" class="item">

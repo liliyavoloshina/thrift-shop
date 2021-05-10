@@ -155,15 +155,15 @@ export default {
   },
   middleware: ['check-auth'],
   head: {
-      title: `Create new item`,
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: `${this.item.description}`
-        }
-      ]
-    }
+    title: 'Create new item',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content: `Creating new item`
+      }
+    ]
+  }
 }
 </script>
 

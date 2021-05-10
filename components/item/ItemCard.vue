@@ -23,10 +23,13 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      isOwnerGetter: 'items/isOwner',
+      isAuthorized: 'isAuthorized'
+    }),
     isOwner() {
-      return this.$store.getters['users/isOwner'](this.item.id)
-    },
-    ...mapGetters(['isAuthorized'])
+      return this.isOwnerGetter(this.item.id)
+    }
   }
 }
 </script>

@@ -7,8 +7,7 @@
     <div v-if="items.length>0" class="products">
       <ItemTray :items="items" />
     </div>
-    <UIEmptyMessage v-else>Unfortunately, there is no items yet...
-    </UIEmptyMessage>
+    <UIEmptyMessage v-else>Unfortunately, there is no items yet...</UIEmptyMessage>
   </div>
 </template>
 

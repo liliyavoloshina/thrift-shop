@@ -17,8 +17,9 @@
         </div>
       </div>
 
-      <div class="actions">
+      isOwner: {{isOwner}}
 
+      <div class="actions">
         <template v-if="isOwner">
           <button @click="deleteItem" class="button action-button">
             Delete
@@ -30,14 +31,13 @@
             Contact Owner
           </nuxt-link>
         </template>
-
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapGetters} from 'vuex'
 export default {
   name: 'Item',
   async asyncData({params, $axios, error}) {
@@ -55,11 +55,20 @@ export default {
     }
   },
   computed: {
+  //   computed: {
+    ...mapGetters({
+      isOwnerGetter: 'items/isOwner',
+      isAuthorized: 'isAuthorized'
+    }),
     isOwner() {
-      if (this.$store.getters['isAuthorized']) {
-        return this.$store.getters['items/isOwner'](this.$route.params.id)
-      }
+      return this.isOwnerGetter(this.$route.params.id)
     },
+  // }
+    // isOwner() {
+    //   // if (this.$store.getters['isAuthorized']) {
+    //     return this.$store.getters['items/isOwner'](this.$route.params.id)
+    //   // }
+    // },
     ...mapState(['user'])
   },
   async created() {

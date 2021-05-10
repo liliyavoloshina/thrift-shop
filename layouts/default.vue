@@ -2,7 +2,7 @@
   <div class="wrapper">
     <UITheNav />
     <main>
-      <Nuxt keep-alive />
+      <Nuxt />
     </main>
     <footer>
       <div>&copy; 2021 made by <a href="https://github.com/liliyavoloshina" target="_blank"> liliyavoloshine</a></div>
@@ -25,7 +25,7 @@ export default {
 
   main {
     min-height: calc(100vh - 180px);
-    padding: 20px;
+    padding: 1.5em;
   }
   footer {
     display: flex;

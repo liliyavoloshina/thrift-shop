@@ -10,13 +10,26 @@
       someone for something you like!</p>
     <div class="block">
       <p>Interested?</p> 
-      <nuxt-link to="/items/create" class="button-start">Add your first thing!</nuxt-link>
+      <nuxt-link to="/items/create" class="action-button button">Add your first thing!</nuxt-link>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  head() {
+    return {
+      title: 'About',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'About thrift-shop'
+        }
+      ]
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -34,19 +47,11 @@ p {
 .block {
   display: flex;
   flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .link {
   color: $accent;
-}
-.button-start {
-  background-color: $accent;
-  color: white;
-  padding: .5rem;
-  font-size: 1.5rem;
-  text-align: center;
-  &:hover {
-    opacity: 0.4;
-  }
 }
 </style>
