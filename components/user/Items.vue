@@ -3,12 +3,11 @@
     <div class="header">
       <h1>ITEMS</h1>
       <nuxt-link v-if="owner" to="/items/create" class="button submit-button-small">Add new!</nuxt-link>
-      <!-- <nuxt-link v-if="owner" to="/items/create" class="button button-create">Add new!</nuxt-link> -->
     </div>
     <div v-if="items.length>0" class="products">
       <ItemTray :items="items" />
     </div>
-    <UIEmptyMessage v-else>Unfortunately, you have no items yet...
+    <UIEmptyMessage v-else>Unfortunately, there is no items yet...
     </UIEmptyMessage>
   </div>
 </template>

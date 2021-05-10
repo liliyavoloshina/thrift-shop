@@ -13,10 +13,15 @@ export default {
       return this.user.id === this.$route.params.id
     },
     ...mapState(['user']),
-    ...mapState('users', ['userItems'])
+    ...mapState('items', ['userItems'])
   },
   async created() {
-    await this.$store.dispatch('users/getUserItems', this.$route.params.id)
+    try {
+      await this.$store.dispatch('items/getUserItems', this.$route.params.id)
+    } catch (e) {
+      console.log(e)
+      return this.$nuxt.error(e)
+    }
   },
   middleware: ['check-auth']
 }

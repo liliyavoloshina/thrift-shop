@@ -20,13 +20,12 @@
       <div class="actions">
 
         <template v-if="isOwner">
-          <button @click="deleteItem" class="submit-button">
+          <button @click="deleteItem" class="button action-button">
             Delete
           </button>
         </template>
 
         <template v-if="!isOwner">
-          <button class="button action-button">Add to Favorites</button>
           <nuxt-link :to="`/user/${item.ownerId}`" class="button submit-button-small">
             Contact Owner
           </nuxt-link>
@@ -41,37 +40,49 @@
 import {mapState} from 'vuex'
 export default {
   name: 'Item',
-  async asyncData({params, $axios}) {
+  async asyncData({params, $axios, error}) {
     const id = params.id
     try {
       const item = await $axios.$get(
         `${process.env.firebaseApi}items/${id}.json`
       )
       return {item}
-    } catch (e) {
-      error(e)
+    } catch ({response}) {
+      error({
+        statusCode: response.status,
+        message: response.statusText
+      })
     }
   },
   computed: {
-    isFav() {
-      return this.$store.getters['items/isFavorite'](this.item.id)
-    },
     isOwner() {
-      return this.$store.getters['users/isOwner'](this.$route.params.id)
+      if (this.$store.getters['isAuthorized']) {
+        return this.$store.getters['items/isOwner'](this.$route.params.id)
+      }
     },
     ...mapState(['user'])
   },
   async created() {
     if (this.$store.getters['isAuthorized']) {
-      await this.$store.dispatch('users/getFavoriteItems', this.user.id)
-      await this.$store.dispatch('users/getUserItems', this.user.id)
+      await this.$store.dispatch('items/getUserItems', this.user.id)
     }
   },
   methods: {
     async deleteItem() {
-      await this.$store.dispatch('users/deleteUserItem', this.$route.params.id)
-      this.$router.go(-1)
-      // this.$router.push('/items')
+      await this.$store.dispatch('items/deleteUserItem', this.$route.params.id)
+      this.$router.replace(`/user/${this.user.id}`)
+    }
+  },
+  head() {
+    return {
+      title: `${this.item.name}`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: `${this.item.description}`
+        }
+      ]
     }
   }
 }

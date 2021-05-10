@@ -8,10 +8,10 @@ export default {
 		meta: [
 			{charset: 'utf-8'},
 			{name: 'viewport', content: 'width=device-width, initial-scale=1'},
-			{hid: 'description', name: 'description', content: ''}
+			{hid: 'description', name: 'description', content: 'Online shop for exchanging things'}
 		],
 		link: [
-			{rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+			{rel: 'icon', type: 'image/x-icon', href: '/favicon.png'},
 			{
 				rel: 'stylesheet',
 				href:
@@ -44,19 +44,6 @@ export default {
 	],
 	styleResources: {
 		scss: '~assets/variables.scss'
-	},
-
-	// Axios module configuration: https://go.nuxtjs.dev/config-axios
-	axios: {
-		// headers: {
-		// 	common: {
-		// 		'Content-Type': 'multipart/form-data'
-		// 	}
-		// }
-	},
-
-	router: {
-		// middleware: ['init-auth', 'check-auth']
 	},
 
 	env: {

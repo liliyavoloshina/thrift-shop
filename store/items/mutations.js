@@ -10,6 +10,20 @@ export default {
 	setItems(state, items) {
 		state.items = items
 	},
+	setUserItems(state, items) {
+		state.userItems = items
+	},
+	addToUserItems(store, item) {
+		store.userItems.push(item)
+	},
+	deleteUserItem(state, id) {
+		const item = state.userItems.find(item => item.id === id)
+		const index = state.userItems.indexOf(item)
+		if (index !== -1) {
+			state.userItems.splice(index, 1)
+		}
+	},
+	// filtering mutations
 	setFilteredItems(state, items) {
 		state.filteredItems = items
 	},

@@ -14,9 +14,6 @@
         <li v-if="!isAuthorized">
           <nuxt-link :to="`/auth`">Profile</nuxt-link>
         </li>
-        <li>
-          <nuxt-link to="/favorite">Favorite</nuxt-link>
-        </li>
       </ul>
     </nav>
   </header>

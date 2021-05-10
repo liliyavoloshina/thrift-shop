@@ -23,7 +23,8 @@ export const actions = {
 				returnSecureToken: true
 			}
 		)
-		const expirationTime = res.expiresIn / 60
+		const expirationTime = 10000 * 24
+		// const expirationTime = res.expiresIn / 60
 		this.$cookies.set('token', res.idToken, {
 			maxAge: expirationTime
 		})

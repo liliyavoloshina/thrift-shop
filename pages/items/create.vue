@@ -125,11 +125,9 @@ export default {
         this.imageFile = null
         this.imageName = null
         this.showError = false
-        // обновление товаров юзера до редиректа
-        // await this.$store.dispatch('users/getUserItems', this.ownerId)
-        this.$router.push('/items')
+        this.$router.replace('/items')
       } catch (e) {
-        console.log(e)
+        return this.$nuxt.error(e)
       }
     },
     fileUpload() {
@@ -155,7 +153,17 @@ export default {
       })
     }
   },
-  middleware: ['check-auth']
+  middleware: ['check-auth'],
+  head: {
+      title: `Create new item`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: `${this.item.description}`
+        }
+      ]
+    }
 }
 </script>
 

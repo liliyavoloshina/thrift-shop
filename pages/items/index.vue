@@ -8,7 +8,7 @@
       </div>
       <transition-group v-if="filteredItems" name="list" class="main">
         <div v-for="item in filteredItems" :key="item.id" class="item">
-          <ItemCard @liked="addToFavorite" :item="item" />
+          <ItemCard :item="item" />
         </div>
       </transition-group>
       <UIEmptyMessage v-if="filteredItems.length < 1">Unfortunately, there are no items by such filter...
@@ -21,8 +21,15 @@
 import {mapState} from 'vuex'
 export default {
   name: 'Items',
-  async fetch({store}) {
-    await store.dispatch('items/getItems')
+  async fetch({store, error}) {
+    try {
+      await store.dispatch('items/getItems')
+    } catch ({response}) {
+      error({
+        statusCode: response.status,
+        message: response.statusText
+      })
+    }
   },
   created() {
     this.getUserItems()
@@ -31,26 +38,10 @@ export default {
     ...mapState('items', ['items', 'filteredItems']),
     ...mapState(['user'])
   },
-  // watch: {
-  //  $route: function () {
-  //    if (this.$route.path == '/items') {
-  //     await this.$store.dispatch('users/getUserItems', this.user.id)
-  //    }
-  //  }
-  // },
   methods: {
     async getUserItems() {
       if (this.$store.getters['isAuthorized']) {
-        await this.$store.dispatch('users/getFavoriteItems', this.user.id)
-        await this.$store.dispatch('users/getUserItems', this.user.id)
-      }
-    },
-    addToFavorite(item) {
-      if (this.$store.getters['isAuthorized']) {
-        this.$store.dispatch('users/addToFavorite', {
-          item: item,
-          uuid: this.user.id
-        })
+        await this.$store.dispatch('items/getUserItems', this.user.id)
       }
     }
   }

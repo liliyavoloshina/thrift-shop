@@ -1,28 +1,27 @@
 <template>
-  <div class="error-page">
-    <h1>Oops, something went wrong!</h1>
-    <p>Back to <a href="/">safety</a>!</p>
+  <div class="error">
+    <h1>{{error.statusCode}}</h1>
+    <h2>{{error.message}}</h2>
+    <nuxt-link to="/">Home page</nuxt-link>
   </div>
 </template>
 
 <script>
 export default {
-  layout: 'error' 
+  props: ['error'],
+  layout: 'error-layout' 
 }
 </script>
 
-<style scoped>
-.error-page {
+<style lang="scss" scoped>
+.error {
+  font-size: 2em;
   text-align: center;
-}
+  color: #fff;
 
-.error-page a {
-  text-decoration: none;
-  color: red;
-}
-
-.error-page a:hover,
-.error-page a:active {
-  color: salmon;
+  a {
+    color: #fff;
+    text-decoration: underline;
+  }
 }
 </style>

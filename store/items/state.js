@@ -1,5 +1,6 @@
 export default () => ({
 	items: [],
+	userItems: [],
 	filteredItems: [],
 	filters: {
 		order: 'newest',

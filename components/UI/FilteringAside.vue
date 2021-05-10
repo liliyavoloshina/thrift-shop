@@ -104,6 +104,10 @@ aside {
 .reset-button {
   width: 100%;
   height: 2rem;
+  background-color: $black;
+	&:hover {
+		color: $accent;
+	}
 }
 
 .genders {
