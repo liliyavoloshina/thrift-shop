@@ -30,7 +30,7 @@ export default {
 		'cookie-universal-nuxt'
 	],
 	axios: {
-    baseURL: process.env.BASE_URL || 'http://localhost:4000'
+    baseURL: process.env.BASE_URL || 'http://localhost:3000'
   },
 	styleResources: {
 		scss: '~assets/variables.scss'
