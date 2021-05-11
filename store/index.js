@@ -16,7 +16,8 @@ export const actions = {
 	async signin({commit}, authInfo) {
 		// аутентификация через fb
 		const res = await this.$axios.$post(
-			`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.firebaseWebApi}`,
+			`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBwbLXl9kttCcrqmndtrzc3LKQ5pwaFxVc`,
+			// `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.firebaseWebApi}`,
 			{
 				email: authInfo.email,
 				password: authInfo.password,
@@ -32,7 +33,8 @@ export const actions = {
 		// получение данных о юзере из бд (нужно ли разбить на 2й экшн?)
 		try {
 			const res = await this.$axios.$get(
-				`${process.env.firebaseApi}users.json?orderBy="email"&equalTo="${authInfo.email}"`
+				`https://thrift-shop-2b434-default-rtdb.firebaseio.com/users.json?orderBy="email"&equalTo="${authInfo.email}"`
+				// `${process.env.firebaseApi}users.json?orderBy="email"&equalTo="${authInfo.email}"`
 			)
 			const uuid = Object.keys(res)[0]
 			const userInfo = await this.$axios.$get(
@@ -49,7 +51,8 @@ export const actions = {
 	async signup({commit}, authInfo) {
 		// аутентификация через fb
 		const res = await this.$axios.$post(
-			`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.firebaseWebApi}`,
+			`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBwbLXl9kttCcrqmndtrzc3LKQ5pwaFxVc`,
+			// `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.firebaseWebApi}`,
 			{
 				email: authInfo.email,
 				password: authInfo.password,
@@ -71,7 +74,8 @@ export const actions = {
 				location: authInfo.location
 			}
 			const res = await this.$axios.$post(
-				`${process.env.firebaseApi}users.json`,
+				`https://thrift-shop-2b434-default-rtdb.firebaseio.com/users.json`,
+				// `${process.env.firebaseApi}users.json`,
 				newUserInfo
 			)
 			commit('setUser', {...newUserInfo, id: res.name})
@@ -89,7 +93,8 @@ export const actions = {
 
 		try {
 			const res = await this.$axios.$get(
-				`${process.env.firebaseApi}users/${uid}.json`
+				`https://thrift-shop-2b434-default-rtdb.firebaseio.com/users/${uid}.json`
+				// `${process.env.firebaseApi}users/${uid}.json`
 			)
 			commit('setUser', {...res, id: uid})
 		} catch ({response}) {

@@ -31,7 +31,8 @@ export default {
       this.userInfo = this.user
     } else {
       const res = await this.$axios.$get(
-        `${process.env.firebaseApi}users/${this.$route.params.id}.json`
+        `https://thrift-shop-2b434-default-rtdb.firebaseio.com/users/${this.$route.params.id}.json`
+        // `${process.env.firebaseApi}users/${this.$route.params.id}.json`
       )
       this.userInfo = {...res, id: this.$route.params.id}
     }

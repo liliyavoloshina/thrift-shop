@@ -29,20 +29,20 @@ export default {
 		'@nuxtjs/axios',
 		'cookie-universal-nuxt'
 	],
-	axios: {
-    baseURL: process.env.BASE_URL || 'http://localhost:3000'
-  },
-	styleResources: {
-		scss: '~assets/variables.scss'
-	},
-	env: {
-		firebaseStorageItemsUrl: process.env.FIREBASE_STORAGE_ITEMS,
-		firebaseApi: process.env.FIREBASE_API,
-		firebaseWebApi: process.env.FIREBASE_WEB_API
-	},
+	// axios: {
+  //   baseURL: process.env.BASE_URL || 'http://localhost:3000'
+  // },
+	// styleResources: {
+	// 	scss: '~assets/variables.scss'
+	// },
+	// env: {
+	// 	firebaseStorageItemsUrl: process.env.FIREBASE_STORAGE_ITEMS,
+	// 	firebaseApi: process.env.FIREBASE_API,
+	// 	firebaseWebApi: process.env.FIREBASE_WEB_API
+	// },
 	loading: '~/components/UI/Loading.vue',
 	build: {},
-	server: {
-    port: process.env.PORT || 3000
-  }
+	// server: {
+  //   port: process.env.PORT || 3000
+  // }
 }

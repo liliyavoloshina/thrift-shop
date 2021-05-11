@@ -6,11 +6,13 @@ export default {
 			}
 		}
 		const res = await this.$axios.$post(
-			`${process.env.firebaseStorageItemsUrl}items%2F${imageName}?alt=media`,
+			`https://firebasestorage.googleapis.com/v0/b/thrift-shop-2b434.appspot.com/o/items%2F${imageName}?alt=media`,
+			// `${process.env.firebaseStorageItemsUrl}items%2F${imageName}?alt=media`,
 			imageData,
 			config
 		)
-		const imageUrl = `${process.env.firebaseStorageItemsUrl}items%2F${imageName}?alt=media&token=${res.downloadTokens}`
+		const imageUrl = `https://firebasestorage.googleapis.com/v0/b/thrift-shop-2b434.appspot.com/o/items%2F${imageName}?alt=media&token=${res.downloadTokens}`
+		// const imageUrl = `${process.env.firebaseStorageItemsUrl}items%2F${imageName}?alt=media&token=${res.downloadTokens}`
 		commit('addNewImage', imageUrl)
 	},
 	async postNewItem({state, commit}, itemData) {
@@ -25,7 +27,8 @@ export default {
 			createdAt: itemData.createdAt
 		}
 		const res = await this.$axios.$post(
-			`${process.env.firebaseApi}items.json`,
+			`https://thrift-shop-2b434-default-rtdb.firebaseio.com/items.json`,
+			// `${process.env.firebaseApi}items.json`,
 			dataToSend
 		)
 		commit('addNewItem', {...dataToSend, id: res.name})
@@ -33,7 +36,8 @@ export default {
 	},
 	async getItems({commit}) {
 		const res = await this.$axios.$get(
-			`${process.env.firebaseApi}items.json`
+			`https://thrift-shop-2b434-default-rtdb.firebaseio.com/items.json`
+			// `${process.env.firebaseApi}items.json`
 		)
 		const items = []
 		for (let item in res) {
@@ -44,7 +48,8 @@ export default {
 	},
 	async getUserItems({commit}, uuid) {
 		const res = await this.$axios.$get(
-			`${process.env.firebaseApi}items.json?orderBy="ownerId"&equalTo="${uuid}"`
+			`https://thrift-shop-2b434-default-rtdb.firebaseio.com/items.json?orderBy="ownerId"&equalTo="${uuid}"`
+			// `${process.env.firebaseApi}items.json?orderBy="ownerId"&equalTo="${uuid}"`
 		)
 		const items = []
 		for (let item in res) {
@@ -53,9 +58,11 @@ export default {
 		commit('setUserItems', items)
 	},
 	async deleteUserItem({commit}, id) {
-		await this.$axios.$delete(`${process.env.firebaseApi}items/${id}.json`)
+		await this.$axios.$delete(`https://thrift-shop-2b434-default-rtdb.firebaseio.com/items/${id}.json`)
+		// await this.$axios.$delete(`${process.env.firebaseApi}items/${id}.json`)
 		await this.$axios.$delete(
-			`${process.env.firebaseApi}users/favorite.json`,
+			`https://thrift-shop-2b434-default-rtdb.firebaseio.com/users/favorite.json`,
+			// `${process.env.firebaseApi}users/favorite.json`,
 			{query: {orderBy: 'id', equalTo: `${id}`}}
 		)
 		commit('deleteUserItem', id)
