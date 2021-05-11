@@ -1,5 +1,4 @@
 export default {
-	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
 		title: 'thrift-shop',
 		htmlAttrs: {
@@ -19,41 +18,28 @@ export default {
 			}
 		]
 	},
-
-	// Global CSS: https://go.nuxtjs.dev/config-css
 	css: ['~/assets/style'],
-
-	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [
 		'~plugins/vuelidate.js',
 		'~plugins/vue-content-placeholder.client.js'
 	],
-	// '~plugins/moment.client.js'
-
-	// Auto import components: https://go.nuxtjs.dev/config-components
 	components: true,
-
-	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
 	buildModules: ['@nuxtjs/style-resources', '@nuxtjs/moment'],
-
-	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: [
-		// https://go.nuxtjs.dev/axios
 		'@nuxtjs/axios',
 		'cookie-universal-nuxt'
 	],
 	styleResources: {
 		scss: '~assets/variables.scss'
 	},
-
 	env: {
 		firebaseStorageItemsUrl: process.env.FIREBASE_STORAGE_ITEMS,
 		firebaseApi: process.env.FIREBASE_API,
 		firebaseWebApi: process.env.FIREBASE_WEB_API
 	},
-
 	loading: '~/components/UI/Loading.vue',
-
-	// Build Configuration: https://go.nuxtjs.dev/config-build
-	build: {}
+	build: {},
+	server: {
+    port: 'https://thrift-shop.herokuapp.com/'
+  }
 }
