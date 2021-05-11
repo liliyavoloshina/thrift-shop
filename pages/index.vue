@@ -39,7 +39,6 @@ export default {
     }
   },
   async fetch() {
-    // const res = await this.$axios.$get(`https://thrift-shop-2b434-default-rtdb.firebaseio.com/items.json`)
     const res = await this.$axios.$get(`${process.env.FIREBASE_API}items.json`)
     const items = []
     for (let item in res) {

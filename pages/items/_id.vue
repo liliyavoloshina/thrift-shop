@@ -42,8 +42,7 @@ export default {
     const id = params.id
     try {
       const item = await $axios.$get(
-        `https://thrift-shop-2b434-default-rtdb.firebaseio.com/items/${id}.json`
-        // `${process.env.firebaseApi}items/${id}.json`
+        `${process.env.FIREBASE_API}items/${id}.json`
       )
       return {item}
     } catch ({response}) {
