@@ -47,6 +47,9 @@ export default {
   },
   created() {
     this.resetFilters()
+    this.genders.forEach(i => {
+      i.checked = false
+    })
   },
   methods: {
     filterItemsGender(value) {
