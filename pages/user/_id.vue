@@ -31,7 +31,7 @@ export default {
       this.userInfo = this.user
     } else {
       const res = await this.$axios.$get(
-        `${process.env.FIREBASE_API}users/${this.$route.params.id}.json`
+        `${process.env.firebaseApi}users/${this.$route.params.id}.json`
       )
       this.userInfo = {...res, id: this.$route.params.id}
     }
