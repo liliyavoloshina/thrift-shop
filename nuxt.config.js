@@ -29,6 +29,9 @@ export default {
 		'@nuxtjs/axios',
 		'cookie-universal-nuxt'
 	],
+	axios: {
+    baseURL: process.env.BASE_URL || 'http://localhost:4000'
+  },
 	styleResources: {
 		scss: '~assets/variables.scss'
 	},
