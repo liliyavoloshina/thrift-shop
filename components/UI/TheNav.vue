@@ -1,21 +1,23 @@
 <template>
   <header>
-    <div class="logo">
-      <nuxt-link to="/" exact>Thrift Shop</nuxt-link>
+    <div class="container">
+      <div class="logo">
+        <nuxt-link to="/" exact>Thrift Shop</nuxt-link>
+      </div>
+      <nav>
+        <ul>
+          <li>
+            <nuxt-link to="/items">Search!</nuxt-link>
+          </li>
+          <li v-if="isAuthorized">
+            Hello, <nuxt-link :to="`/user/${user.id}`">{{user.name}}!</nuxt-link>
+          </li>
+          <li v-else>
+            <nuxt-link :to="`/auth`">SignIn</nuxt-link>
+          </li>
+        </ul>
+      </nav>
     </div>
-    <nav>
-      <ul>
-        <li>
-          <nuxt-link to="/items">Search!</nuxt-link>
-        </li>
-        <li v-if="isAuthorized">
-          Hello, <nuxt-link :to="`/user/${user.id}`">{{user.name}}!</nuxt-link>
-        </li>
-        <li v-else>
-          <nuxt-link :to="`/auth`">SignIn</nuxt-link>
-        </li>
-      </ul>
-    </nav>
   </header>
 </template>
 
@@ -32,11 +34,13 @@ export default {
 
 <style lang="scss" scoped>
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1em 1.5em;
   border-bottom: 1px solid $grey;
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em 1.5em;
+  }
 
   .logo {
     font-style: italic;

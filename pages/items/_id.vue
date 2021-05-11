@@ -17,8 +17,6 @@
         </div>
       </div>
 
-      isOwner: {{isOwner}}
-
       <div class="actions">
         <template v-if="isOwner">
           <button @click="deleteItem" class="button action-button">
@@ -55,7 +53,6 @@ export default {
     }
   },
   computed: {
-  //   computed: {
     ...mapGetters({
       isOwnerGetter: 'items/isOwner',
       isAuthorized: 'isAuthorized'
@@ -63,16 +60,10 @@ export default {
     isOwner() {
       return this.isOwnerGetter(this.$route.params.id)
     },
-  // }
-    // isOwner() {
-    //   // if (this.$store.getters['isAuthorized']) {
-    //     return this.$store.getters['items/isOwner'](this.$route.params.id)
-    //   // }
-    // },
     ...mapState(['user'])
   },
   async created() {
-    if (this.$store.getters['isAuthorized']) {
+    if (this.isAuthorized) {
       await this.$store.dispatch('items/getUserItems', this.user.id)
     }
   },

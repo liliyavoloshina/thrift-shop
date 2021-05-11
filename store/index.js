@@ -23,7 +23,7 @@ export const actions = {
 				returnSecureToken: true
 			}
 		)
-		const expirationTime = res.expiresIn / 60
+		const expirationTime = res.expiresIn
 		this.$cookies.set('token', res.idToken, {
 			maxAge: expirationTime
 		})
@@ -43,7 +43,7 @@ export const actions = {
 				maxAge: expirationTime
 			})
 		} catch (e) {
-			console.log(e)
+			throw new Error(e)
 		}
 	},
 	async signup({commit}, authInfo) {
@@ -56,7 +56,7 @@ export const actions = {
 				returnSecureToken: true
 			}
 		)
-		const expirationTime = res.expiresIn / 60
+		const expirationTime = res.expiresIn
 		this.$cookies.set('token', res.idToken, {
 			maxAge: expirationTime
 		})
@@ -79,17 +79,13 @@ export const actions = {
 				maxAge: expirationTime
 			})
 		} catch (e) {
-			console.log(e)
+			throw new Error(e)
 		}
 	},
-	async nuxtServerInit({commit}, {app, error}) {
-		let token = app.$cookies.get('token')
-		let uid = app.$cookies.get('uuid')
-
-		if (!token || !uid) {
-			token = this.$cookies.get('token')
-			uid = this.$cookies.get('uuid')
-		}
+	async nuxtServerInit({commit}, {error}) {
+		// проверка куки
+		let token = this.$cookies.get('token')
+		let uid = this.$cookies.get('uuid')
 
 		try {
 			const res = await this.$axios.$get(
@@ -106,15 +102,25 @@ export const actions = {
 		commit('setToken', token)
 	},
 	logout({commit}) {
+		this.$cookies.remove('token')
+		this.$cookies.remove('uuid')
 		commit('setToken', null)
 		commit('setUser', null)
-		this.$cookies.removeAll()
-		this.$nuxt.app.$cookies.removeAll()
 	}
 }
 
 export const getters = {
 	isAuthorized(state) {
 		return state.token ? true : false
+	},
+	isUser: (state, getters) => id => {
+		if (getters.isAuthorized == false) {
+			return
+		}
+		if (state.user.id == id) {
+			return true
+		} else {
+			return false
+		}
 	}
 }

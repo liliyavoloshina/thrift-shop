@@ -1,25 +1,39 @@
 <template>
   <div v-if="user" class="profile container">
-    <UserInfo :user="user" :owner="owner" />
-    <UserItems :items="userItems" :owner="owner" />
+    <UserInfo :userInfo="userInfo" :isUser="isUser" />
+    <UserItems :items="userItems" :isUser="isUser" />
   </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapGetters} from 'vuex'
 export default {
+  data() {
+    return {
+      userInfo: ''
+    }
+  },
   computed: {
-    owner() {
-      return this.user.id === this.$route.params.id
-    },
     ...mapState(['user']),
-    ...mapState('items', ['userItems'])
+    ...mapState('items', ['userItems']),
+    ...mapGetters({
+      isUserGetter: 'isUser'
+    }),
+    isUser() {
+      return this.isUserGetter(this.$route.params.id)
+    }
   },
   async created() {
-    try {
-      await this.$store.dispatch('items/getUserItems', this.$route.params.id)
-    } catch (e) {
-      return this.$nuxt.error(e)
+    // получение вещей юзера, в чей профиль зашли
+    this.$store.dispatch('items/getUserItems', this.$route.params.id)
+    // получение инфо юзера, в чей профиль зашли
+    if (this.isUser) {
+      this.userInfo = this.user
+    } else {
+      const res = await this.$axios.$get(
+        `${process.env.firebaseApi}users/${this.$route.params.id}.json`
+      )
+      this.userInfo = {...res, id: this.$route.params.id}
     }
   },
   middleware: ['check-auth']

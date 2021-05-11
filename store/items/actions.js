@@ -13,7 +13,7 @@ export default {
 		const imageUrl = `${process.env.firebaseStorageItemsUrl}items%2F${imageName}?alt=media&token=${res.downloadTokens}`
 		commit('addNewImage', imageUrl)
 	},
-	async postNewItem({state, commit, rootState}, itemData) {
+	async postNewItem({state, commit}, itemData) {
 		const dataToSend = {
 			name: itemData.name,
 			description: itemData.description,

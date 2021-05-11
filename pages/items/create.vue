@@ -127,7 +127,7 @@ export default {
         this.showError = false
         this.$router.replace('/items')
       } catch (e) {
-        return this.$nuxt.error(e)
+        throw new Error(e)
       }
     },
     fileUpload() {

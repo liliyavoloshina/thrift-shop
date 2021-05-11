@@ -2,7 +2,7 @@
   <div class="profile-product profile-block">
     <div class="header">
       <h1>ITEMS</h1>
-      <nuxt-link v-if="owner" to="/items/create" class="button submit-button-small">Add new!</nuxt-link>
+      <nuxt-link v-if="isUser" to="/items/create" class="button submit-button-small">Add new!</nuxt-link>
     </div>
     <div v-if="items.length>0" class="products">
       <ItemTray :items="items" />
@@ -17,7 +17,7 @@ export default {
     items: {
       type: Array
     },
-    owner: {
+    isUser: {
       type: Boolean
     }
   }

@@ -2,12 +2,12 @@
   <div class="profile-info profile-block">
     <div class="header">
       <h1>PERSONAL INFO</h1>
-      <button v-if="owner" @click="logout" class="button action-button">Logout</button>
-      <a v-else :href="`mailto:${user.email}`" class="button submit-button-small">Contact</a>
+      <button v-if="isUser" @click="logout" class="button action-button">Logout</button>
+      <a v-else :href="`mailto:${userInfo.email}`" class="button submit-button-small">Contact</a>
     </div>
     <ul class="personal-info">
-      <li><span class="label">Name:</span> {{user.name}}</li>
-      <li><span class="label">Location:</span> {{user.location}}</li>
+      <li><span class="label">Name:</span> {{userInfo.name}}</li>
+      <li><span class="label">Location:</span> {{userInfo.location}}</li>
     </ul>
   </div>
 </template>
@@ -15,10 +15,10 @@
 <script>
 export default {
   props: {
-    user: {
+    userInfo: {
       required: true
     },
-    owner: {
+    isUser: {
       type: Boolean
     }
   },
