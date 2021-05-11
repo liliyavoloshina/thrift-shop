@@ -45,9 +45,6 @@ export default {
 	styleResources: {
 		scss: '~assets/variables.scss'
 	},
-	axios: {
-    baseURL: 'https://thrift-shop.herokuapp.com/'
-  },
 
 	env: {
 		firebaseStorageItemsUrl: process.env.FIREBASE_STORAGE_ITEMS,
