@@ -1,8 +1,6 @@
 <template>
   <div class="home container">
-    
     <UIHomePromo />
-
     <div class="home-items">
       <div class="home-items-area">
         <h2>New Items</h2>
@@ -29,7 +27,6 @@
         </template>
       </div>
     </div>
-
   </div>
 </template>
 
