@@ -13,7 +13,7 @@
           <label for="description">Description:</label>
           <textarea v-model="$v.description.$model"
             :class="$v.description.$invalid && $v.description.$dirty || showError ? 'error-field' : ''" id="description"
-            rows="5" maxlength="50" placeholder="Describe your thing..."></textarea>
+            rows="5" maxlength="100" placeholder="Describe your thing..."></textarea>
           <div v-if="!$v.description.required && $v.description.$dirty || showError" class="error">Description is
             required
           </div>
