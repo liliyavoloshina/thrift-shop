@@ -45,6 +45,9 @@ export default {
       return this.$store.state.items.filters.gender
     }
   },
+  created() {
+    this.resetFilters()
+  },
   methods: {
     filterItemsGender(value) {
       this.$store.dispatch('items/filterItemsGender', value)
