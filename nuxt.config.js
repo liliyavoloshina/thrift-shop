@@ -32,9 +32,9 @@ export default {
 	// axios: {
   //   baseURL: process.env.BASE_URL || 'http://localhost:3000'
   // },
-	// styleResources: {
-	// 	scss: '~assets/variables.scss'
-	// },
+	styleResources: {
+		scss: '~assets/variables.scss'
+	},
 	// env: {
 	// 	firebaseStorageItemsUrl: process.env.FIREBASE_STORAGE_ITEMS,
 	// 	firebaseApi: process.env.FIREBASE_API,
