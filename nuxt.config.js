@@ -40,6 +40,6 @@ export default {
 	loading: '~/components/UI/Loading.vue',
 	build: {},
 	server: {
-    port: 'https://thrift-shop.herokuapp.com/'
+    port: process.env.PORT || 3000
   }
 }
