@@ -6,7 +6,7 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate" 
+    "generate": "nuxt generate"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.1",
@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@nuxtjs/style-resources": "^1.0.0",
-    "node-sass": "^5.0.0",
-    "sass-loader": "^10.1.1"
+    "node-sass": "^8.0.0",
+    "sass-loader": "^13.2.0"
   }
 }
