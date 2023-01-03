@@ -1,20 +1,9 @@
 # thrift-shop
 
-## Build Setup
+"Second-hand online shop", that allows you to add, delete items to common catalog, contact with other owners and sort/filter things.
 
-```bash
-# install dependencies
-$ npm install
+Based on Nuxt.js, firebase backend and auth (REST), custom cookie authentication and ssr on some pages.
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+Styling on pure css (scss) and hosting by Heroku.
 
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+Demo: https://thrift-shop.herokuapp.com/
